@@ -22,7 +22,7 @@
 
 `CurrentIndex`: 当前选择的方案索引位置。
 
-`HotKey`: 切换开始、结束的按键名，名称必须在https://github.com/dicarne/Mykey/blob/main/Mykey/HotKey.cs中的Keys中有。
+`HotKey`: 切换开始、结束的按键名，名称必须在 [HotKey.cs](https://github.com/dicarne/Mykey/blob/main/Mykey/HotKey.cs) 中的Keys中有。
 
 `Configs`: 保存多个配置方案，可切换。
 
