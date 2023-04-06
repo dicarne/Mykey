@@ -86,7 +86,9 @@ public class ConfigItem
     {
         _tmp_keys ??= PressKey.Split("|");
         if (RunIndex >= _tmp_keys.Length) RunIndex = 0;
-        return _tmp_keys[RunIndex].Trim();
+        var r = _tmp_keys[RunIndex].Trim();
+        RunIndex++;
+        return r;
     }
 
     int RunIndex = 0;
