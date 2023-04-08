@@ -14,7 +14,7 @@ public partial class Mykey : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
-
+        timer.Elapsed += Timer_Elapsed;
     }
     private const int WM_HOTKEY = 0x312; //窗口消息-热键
     private const int WM_CREATE = 0x1; //窗口消息-创建
@@ -82,7 +82,7 @@ public partial class Mykey : Form
         started = true;
         currentConfig.Reset();
         timer.Interval = currentConfig.Interval;
-        timer.Elapsed += Timer_Elapsed;
+        
         timer.Start();
 
         StatueLabel.Text = "运行";
