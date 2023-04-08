@@ -11,11 +11,34 @@ public partial class Mykey : Form
     {
         InitializeComponent();
     }
-
+    FileSystemWatcher watcher = new();
     private void Form1_Load(object sender, EventArgs e)
     {
+        loadConfig();
+        currentHotKey = Config.Instance.HotKey;
         timer.Elapsed += Timer_Elapsed;
+        watcher.Changed += Watcher_Changed;
+        watcher.Path = "./";
+        watcher.Filter = "config.json";
+        watcher.EnableRaisingEvents = true;
     }
+
+    private void Watcher_Changed(object sender, FileSystemEventArgs e)
+    {
+        if (e.Name == "config.json" && e.ChangeType == WatcherChangeTypes.Changed)
+        {
+            Invoke(() =>
+            {
+                try
+                {
+                    Thread.Sleep(1000);
+                    loadConfig();
+                }
+                catch (Exception) { }
+            });
+        }
+    }
+
     private const int WM_HOTKEY = 0x312; //窗口消息-热键
     private const int WM_CREATE = 0x1; //窗口消息-创建
     private const int WM_DESTROY = 0x2; //窗口消息-销毁
@@ -38,7 +61,6 @@ public partial class Mykey : Form
                         {
                             StartKey();
                         }
-
                         break;
                     default:
                         break;
@@ -58,10 +80,17 @@ public partial class Mykey : Form
 
     }
 
+    string currentHotKey;
     void loadConfig()
     {
         currentConfig = Config.GetCurrentConfig();
-        StartStopLabel.Text = Config.Instance.HotKey;
+
+        if (currentHotKey != Config.Instance.HotKey)
+        {
+            SetHotKey();
+            StartStopLabel.Text = Config.Instance.HotKey;
+            currentHotKey = Config.Instance.HotKey;
+        }
         if (currentConfig != null)
         {
             PressKeyLabel.Text = currentConfig.PressKey;
@@ -77,12 +106,11 @@ public partial class Mykey : Form
     void StartKey()
     {
         if (started) return;
-        loadConfig();
         if (currentConfig == null) return;
         started = true;
         currentConfig.Reset();
         timer.Interval = currentConfig.Interval;
-        
+
         timer.Start();
 
         StatueLabel.Text = "运行";
@@ -108,15 +136,14 @@ public partial class Mykey : Form
     void SetHotKey()
     {
         UnsetHotKey();
-        loadConfig();
         var ret = HotKey.RegKey(Handle, Space, HotKey.KeyModifiers.None, Config.Instance.GetHotKey());
         switch (ret)
         {
             case 1:
-                MessageBox.Show("占用！");
+                MessageBox.Show("热键已占用！");
                 return;
             case 2:
-                MessageBox.Show("失败！");
+                MessageBox.Show("注册热键失败！");
                 return;
             default:
                 break;
