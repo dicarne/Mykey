@@ -1,5 +1,6 @@
 namespace MyKeyForm;
 using global::Mykey;
+using System.Diagnostics;
 using System.Timers;
 using System.Windows.Forms;
 using Keys = global::Mykey.Keys;
@@ -27,15 +28,19 @@ public partial class Mykey : Form
     {
         if (e.Name == "config.json" && e.ChangeType == WatcherChangeTypes.Changed)
         {
-            Invoke(() =>
+            Task.Run(() =>
             {
-                try
+                Thread.Sleep(1000);
+                Invoke(() =>
                 {
-                    Thread.Sleep(1000);
-                    loadConfig();
-                }
-                catch (Exception) { }
+                    try
+                    {
+                        loadConfig();
+                    }
+                    catch (Exception) { }
+                });
             });
+
         }
     }
 
@@ -97,6 +102,26 @@ public partial class Mykey : Form
             IntervalLabel.Text = currentConfig.Interval.ToString();
             NameLabel.Text = currentConfig.ConfigName;
         }
+        for (int i = 0; i < Config.Instance.Configs.Count; i++)
+        {
+            if (i >= Plans.Items.Count)
+            {
+                Plans.Items.Add(Config.Instance.Configs[i].ConfigName);
+            }
+            else
+            {
+                Plans.Items[i] = Config.Instance.Configs[i].ConfigName;
+            }
+        }
+        if (last_index == -1 && Config.Instance.CurrentIndex <= Plans.Items.Count)
+        {
+            last_index = Config.Instance.CurrentIndex;
+            Plans.SetItemChecked(last_index, true);
+        }
+        while (Config.Instance.Configs.Count < Plans.Items.Count)
+        {
+            Plans.Items.RemoveAt(Plans.Items.Count - 1);
+        }
     }
 
     bool started = false;
@@ -153,5 +178,26 @@ public partial class Mykey : Form
     private void HelpButton_Click(object sender, EventArgs e)
     {
         MessageBox.Show("编辑config.json进行配置。\nHotKey：配置开启、关闭的热键。\nPressKey：配置要按的键，可以多个，用 | 分割。", "说明");
+    }
+
+    int last_index = -1;
+    private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (last_index != Plans.SelectedIndex)
+        {
+            last_index = Plans.SelectedIndex;
+            for (int i = 0; i < Plans.Items.Count; i++)
+            {
+                if (i == Plans.SelectedIndex) Plans.SetItemChecked(i, true);
+                else Plans.SetItemChecked(i, false);
+            }
+            Config.Instance.CurrentIndex = Plans.SelectedIndex;
+            Config.Save();
+            loadConfig();
+        }
+        else
+        {
+            Plans.SetItemChecked(last_index, true);
+        }
     }
 }

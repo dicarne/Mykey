@@ -39,6 +39,7 @@
             IntervalLabel = new Label();
             label5 = new Label();
             NameLabel = new Label();
+            Plans = new CheckedListBox();
             SuspendLayout();
             // 
             // label1
@@ -138,11 +139,21 @@
             NameLabel.Size = new Size(0, 17);
             NameLabel.TabIndex = 10;
             // 
+            // Plans
+            // 
+            Plans.FormattingEnabled = true;
+            Plans.Location = new Point(25, 175);
+            Plans.Name = "Plans";
+            Plans.Size = new Size(270, 130);
+            Plans.TabIndex = 11;
+            Plans.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
+            // 
             // Mykey
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(327, 353);
+            Controls.Add(Plans);
             Controls.Add(NameLabel);
             Controls.Add(label5);
             Controls.Add(IntervalLabel);
@@ -174,5 +185,6 @@
         private Label IntervalLabel;
         private Label label5;
         private Label NameLabel;
+        private CheckedListBox Plans;
     }
 }
