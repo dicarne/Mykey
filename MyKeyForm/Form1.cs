@@ -12,16 +12,11 @@ public partial class Mykey : Form
     {
         InitializeComponent();
     }
-    FileSystemWatcher watcher = new();
     private void Form1_Load(object sender, EventArgs e)
     {
         loadConfig();
         currentHotKey = Config.Instance.HotKey;
         timer.Elapsed += Timer_Elapsed;
-        watcher.Changed += Watcher_Changed;
-        watcher.Path = "./";
-        watcher.Filter = "config.json";
-        watcher.EnableRaisingEvents = true;
 
         if (!pressKey.IsUAC())
         {
@@ -29,25 +24,6 @@ public partial class Mykey : Form
         }
     }
 
-    private void Watcher_Changed(object sender, FileSystemEventArgs e)
-    {
-        if (e.Name == "config.json" && e.ChangeType == WatcherChangeTypes.Changed)
-        {
-            Task.Run(() =>
-            {
-                Thread.Sleep(1000);
-                Invoke(() =>
-                {
-                    try
-                    {
-                        loadConfig();
-                    }
-                    catch (Exception) { }
-                });
-            });
-
-        }
-    }
 
     private const int WM_HOTKEY = 0x312; //窗口消息-热键
     private const int WM_CREATE = 0x1; //窗口消息-创建
@@ -119,8 +95,9 @@ public partial class Mykey : Form
             {
                 Plans.Items[i] = Config.Instance.Configs[i].ConfigName;
             }
+            Plans.SetItemChecked(i, false);
         }
-        if (last_index == -1 && Config.Instance.CurrentIndex <= Plans.Items.Count)
+        if (Config.Instance.CurrentIndex <= Plans.Items.Count)
         {
             last_index = Config.Instance.CurrentIndex;
             if (last_index == -1)
@@ -275,6 +252,7 @@ public partial class Mykey : Form
         {
             currentConfig.ConfigName = NameTextBox.Text;
             Config.Save();
+            loadConfig();
         }
     }
 
@@ -284,6 +262,7 @@ public partial class Mykey : Form
         {
             currentConfig.PressKey = PressKeyTextBox.Text;
             Config.Save();
+            loadConfig();
         }
     }
 
@@ -294,6 +273,26 @@ public partial class Mykey : Form
             int.TryParse(IntervalTextBox.Text, out var interval);
             currentConfig.Interval = interval;
             Config.Save();
+            loadConfig();
         }
+    }
+
+    private void CreateButton_Click(object sender, EventArgs e)
+    {
+        Config.Instance.Configs.Add(new ConfigItem());
+        Config.Instance.CurrentIndex = Config.Instance.Configs.Count - 1;
+        loadConfig();
+        Config.SaveNow();
+    }
+
+    private void DeleteButton_Click(object sender, EventArgs e)
+    {
+        Config.Instance.Configs.RemoveAt(Config.Instance.CurrentIndex);
+        if(Config.Instance.CurrentIndex == Config.Instance.Configs.Count)
+        {
+            Config.Instance.CurrentIndex--;
+        }
+        loadConfig();
+        Config.SaveNow();
     }
 }

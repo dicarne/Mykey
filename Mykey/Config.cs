@@ -55,10 +55,14 @@ public class Config
         });
     }
 
+    public static void SaveNow()
+    {
+        File.WriteAllText("config.json", System.Text.Json.JsonSerializer.Serialize(instance));
+    }
+
     public static ConfigItem? GetCurrentConfig()
     {
         var lastIndex = instance.CurrentIndex;
-        Load();
         instance.CurrentIndex = lastIndex;
         if (instance.Configs.Count == 0) return null;
         if (instance.CurrentIndex >= instance.Configs.Count || instance.CurrentIndex < 0) return null;
@@ -74,10 +78,10 @@ public class Config
 
 public class ConfigItem
 {
-    public string ConfigName { get; set; }
+    public string ConfigName { get; set; } = "新方案";
     //public string HotKey { get; set; }
-    public int Interval { get; set; }
-    public string PressKey { get; set; }
+    public int Interval { get; set; } = 100;
+    public string PressKey { get; set; } = "";
     //public Keys GetHotKey()
     //{
     //    return Enum.Parse<Keys>(HotKey);

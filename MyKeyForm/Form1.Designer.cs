@@ -41,6 +41,8 @@
             NameTextBox = new TextBox();
             PressKeyTextBox = new TextBox();
             IntervalTextBox = new TextBox();
+            CreateButton = new Button();
+            DeleteButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -65,10 +67,10 @@
             // 
             // HelpButton
             // 
-            HelpButton.Location = new Point(24, 379);
+            HelpButton.Location = new Point(32, 374);
             HelpButton.Margin = new Padding(4);
             HelpButton.Name = "HelpButton";
-            HelpButton.Size = new Size(96, 27);
+            HelpButton.Size = new Size(96, 28);
             HelpButton.TabIndex = 2;
             HelpButton.Text = "说明";
             HelpButton.UseVisualStyleBackColor = true;
@@ -120,7 +122,7 @@
             Plans.Location = new Point(32, 206);
             Plans.Margin = new Padding(4);
             Plans.Name = "Plans";
-            Plans.Size = new Size(346, 136);
+            Plans.Size = new Size(335, 136);
             Plans.TabIndex = 11;
             Plans.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
@@ -138,7 +140,7 @@
             // AdminTest
             // 
             AdminTest.AutoSize = true;
-            AdminTest.Location = new Point(129, 382);
+            AdminTest.Location = new Point(86, 9);
             AdminTest.Margin = new Padding(4, 0, 4, 0);
             AdminTest.Name = "AdminTest";
             AdminTest.Size = new Size(0, 20);
@@ -168,11 +170,33 @@
             IntervalTextBox.TabIndex = 16;
             IntervalTextBox.TextChanged += IntervalTextBox_TextChanged;
             // 
+            // CreateButton
+            // 
+            CreateButton.Location = new Point(155, 374);
+            CreateButton.Name = "CreateButton";
+            CreateButton.Size = new Size(94, 29);
+            CreateButton.TabIndex = 17;
+            CreateButton.Text = "新建";
+            CreateButton.UseVisualStyleBackColor = true;
+            CreateButton.Click += CreateButton_Click;
+            // 
+            // DeleteButton
+            // 
+            DeleteButton.Location = new Point(273, 374);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(94, 29);
+            DeleteButton.TabIndex = 18;
+            DeleteButton.Text = "删除";
+            DeleteButton.UseVisualStyleBackColor = true;
+            DeleteButton.Click += DeleteButton_Click;
+            // 
             // Mykey
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(420, 415);
+            Controls.Add(DeleteButton);
+            Controls.Add(CreateButton);
             Controls.Add(IntervalTextBox);
             Controls.Add(PressKeyTextBox);
             Controls.Add(NameTextBox);
@@ -213,5 +237,7 @@
         private TextBox NameTextBox;
         private TextBox PressKeyTextBox;
         private TextBox IntervalTextBox;
+        private Button CreateButton;
+        private Button DeleteButton;
     }
 }
