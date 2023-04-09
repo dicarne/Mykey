@@ -126,6 +126,7 @@ public partial class Mykey : Form
         }
 
         _setOtherDisable(Config.Instance.Configs.Count == 0);
+        CreateButton.Enabled = true;
     }
 
     bool started = false;

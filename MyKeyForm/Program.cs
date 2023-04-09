@@ -4,7 +4,7 @@ namespace MyKeyForm
 {
     internal static class Program
     {
-        public static string Version = "0.2.3";
+        public static string Version = "0.2.4";
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
