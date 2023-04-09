@@ -74,8 +74,16 @@ public partial class Mykey : Form
         if (!_alreadySetHotKey || currentHotKey != Config.Instance.HotKey)
         {
             SetHotKey();
-            ModifyHotkeyButton.Text = Config.Instance.HotKey;
-            currentHotKey = Config.Instance.HotKey;
+            if (unvalidHotkey)
+            {
+                ModifyHotkeyButton.Text = "热键被占用！请修改或关闭对应程序后重启！";
+            }
+            else
+            {
+                ModifyHotkeyButton.Text = Config.Instance.HotKey;
+                currentHotKey = Config.Instance.HotKey;
+            }
+            
         }
         if (currentConfig != null)
         {
@@ -135,6 +143,8 @@ public partial class Mykey : Form
         timer.Start();
 
         StatueLabel.Text = "运行";
+        _setOtherDisable(true);
+        ModifyHotkeyButton.Enabled = false;
     }
 
     private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -162,6 +172,8 @@ public partial class Mykey : Form
         timer.Stop();
         started = false;
         StatueLabel.Text = "停止";
+        _setOtherDisable(false);
+        ModifyHotkeyButton.Enabled = true;
     }
 
     bool _alreadySetHotKey = false;
@@ -170,6 +182,8 @@ public partial class Mykey : Form
         _alreadySetHotKey = false;
         HotKey.UnRegKey(Handle, Space); //销毁热键
     }
+
+    bool unvalidHotkey = false;
     void SetHotKey()
     {
         UnsetHotKey();
@@ -178,12 +192,15 @@ public partial class Mykey : Form
         switch (ret)
         {
             case 1:
-                MessageBox.Show("热键已占用！");
+                //MessageBox.Show("热键已占用！");
+                unvalidHotkey = true;
                 return;
             case 2:
-                MessageBox.Show("注册热键失败！");
+                //MessageBox.Show("注册热键失败！");
+                unvalidHotkey = true;
                 return;
             default:
+                unvalidHotkey = false;
                 break;
         }
     }
@@ -227,6 +244,8 @@ public partial class Mykey : Form
         PressKeyTextBox.Enabled = !disable;
         IntervalTextBox.Enabled = !disable;
         Plans.Enabled = !disable;
+        CreateButton.Enabled = !disable;
+        DeleteButton.Enabled = !disable;
     }
     private void ModifyHotkeyButton_Click(object sender, EventArgs e)
     {
@@ -244,6 +263,7 @@ public partial class Mykey : Form
             ModifyHotkeyButton.Text = keyname;
             Config.Instance.HotKey = keyname;
             Config.Save();
+            loadConfig();
             _cancelLastKeySet = null;
             _handleKeySet = null;
             _setOtherDisable(false);
