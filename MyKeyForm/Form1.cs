@@ -90,7 +90,7 @@ public partial class Mykey : Form
     {
         currentConfig = Config.GetCurrentConfig();
 
-        if (currentHotKey != Config.Instance.HotKey)
+        if (!_alreadySetHotKey || currentHotKey != Config.Instance.HotKey)
         {
             SetHotKey();
             StartStopLabel.Text = Config.Instance.HotKey;
@@ -101,6 +101,8 @@ public partial class Mykey : Form
             PressKeyLabel.Text = currentConfig.PressKey;
             IntervalLabel.Text = currentConfig.Interval.ToString();
             NameLabel.Text = currentConfig.ConfigName;
+
+            timer.Interval = currentConfig.Interval;
         }
         for (int i = 0; i < Config.Instance.Configs.Count; i++)
         {
@@ -154,13 +156,16 @@ public partial class Mykey : Form
         StatueLabel.Text = "停止";
     }
 
+    bool _alreadySetHotKey = false;
     void UnsetHotKey()
     {
+        _alreadySetHotKey = false;
         HotKey.UnRegKey(Handle, Space); //销毁热键
     }
     void SetHotKey()
     {
         UnsetHotKey();
+        _alreadySetHotKey = true;
         var ret = HotKey.RegKey(Handle, Space, HotKey.KeyModifiers.None, Config.Instance.GetHotKey());
         switch (ret)
         {
@@ -199,5 +204,32 @@ public partial class Mykey : Form
         {
             Plans.SetItemChecked(last_index, true);
         }
+    }
+
+    Action? _cancelLastKeySet;
+    Action<string>? _handleKeySet;
+    private void ModifyHotkeyButton_Click(object sender, EventArgs e)
+    {
+        _cancelLastKeySet?.Invoke();
+        UnsetHotKey();
+        StartStopLabel.Text = "按下你想要的热键";
+        ModifyHotkeyButton.Text = "取消";
+        _handleKeySet = (string keyname) =>
+        {
+            StartStopLabel.Text = keyname;
+            Config.Instance.HotKey = keyname;
+            ModifyHotkeyButton.Text = "修改";
+            Config.Save();
+        };
+        _cancelLastKeySet = () =>
+        {
+            ModifyHotkeyButton.Text = "修改";
+            loadConfig();
+        };
+    }
+
+    private void Mykey_KeyDown(object sender, KeyEventArgs e)
+    {
+        _handleKeySet?.Invoke(e.KeyCode.ToString());
     }
 }

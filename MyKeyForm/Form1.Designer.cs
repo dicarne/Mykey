@@ -40,6 +40,7 @@
             label5 = new Label();
             NameLabel = new Label();
             Plans = new CheckedListBox();
+            ModifyHotkeyButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -84,8 +85,9 @@
             StartStopLabel.AutoSize = true;
             StartStopLabel.Location = new Point(111, 60);
             StartStopLabel.Name = "StartStopLabel";
-            StartStopLabel.Size = new Size(0, 17);
+            StartStopLabel.Size = new Size(48, 17);
             StartStopLabel.TabIndex = 4;
+            StartStopLabel.Text = "NotSet";
             // 
             // label3
             // 
@@ -148,11 +150,22 @@
             Plans.TabIndex = 11;
             Plans.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
+            // ModifyHotkeyButton
+            // 
+            ModifyHotkeyButton.Location = new Point(231, 60);
+            ModifyHotkeyButton.Name = "ModifyHotkeyButton";
+            ModifyHotkeyButton.Size = new Size(75, 23);
+            ModifyHotkeyButton.TabIndex = 12;
+            ModifyHotkeyButton.Text = "修改";
+            ModifyHotkeyButton.UseVisualStyleBackColor = true;
+            ModifyHotkeyButton.Click += ModifyHotkeyButton_Click;
+            // 
             // Mykey
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(327, 353);
+            Controls.Add(ModifyHotkeyButton);
             Controls.Add(Plans);
             Controls.Add(NameLabel);
             Controls.Add(label5);
@@ -165,9 +178,11 @@
             Controls.Add(HelpButton);
             Controls.Add(StatueLabel);
             Controls.Add(label1);
+            KeyPreview = true;
             Name = "Mykey";
             Text = "Mykey";
             Load += Form1_Load;
+            KeyDown += Mykey_KeyDown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -186,5 +201,6 @@
         private Label label5;
         private Label NameLabel;
         private CheckedListBox Plans;
+        private Button ModifyHotkeyButton;
     }
 }
