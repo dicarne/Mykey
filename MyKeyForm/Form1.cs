@@ -47,6 +47,7 @@ public partial class Mykey : Form
                         {
                             StartKey();
                         }
+                        Debug.WriteLine("hotkey");
                         break;
                     default:
                         break;
@@ -211,7 +212,7 @@ public partial class Mykey : Form
     {
         MessageBox.Show($"【当前版本】：V{Program.Version}\n" +
             "【开始停止】：点击按钮后，按下启动键修改开始/停止的热键。\n" +
-            "【按键列表】：输入要按的键，可以输入多个，用 | 分割，在运行时将依次按下。输入LM代表鼠标左键，RM代表鼠标右键。\n" +
+            "【按键列表】：输入要按的键，可以输入多个，用 | 分割，在运行时将依次按下。输入LM代表鼠标左键，RM代表鼠标右键。如果需要同时按下多个键，则用\\分割，如：shift\\w\\e指的是按下shift和w、e的组合键。修饰键支持shift、alt、ctrl。\n" +
             "【按键间隔】：以毫秒为单位。按键将尽最大努力按照指定时间进行按键，但如果间隔太小了，实际按键间隔将大于设定间隔。\n" +
             "【管理员权限】：某些应用可能需要管理员权限打开本程序才可生效。\n" +
             "【开源地址】：https://github.com/dicarne/Mykey", "说明");

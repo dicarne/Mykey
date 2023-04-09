@@ -47,7 +47,7 @@ namespace Mykey
         {
             while (true)
             {
-                
+
                 PressTask? task = null;
                 lock (this)
                 {
@@ -59,7 +59,26 @@ namespace Mykey
                     {
                         case PressTask.PType.Key:
                             {
-                                ts.KeyPressChar(task.Key);
+                                var keys = task.Key.Split('\\');
+                                if (keys.Length == 1) { ts.KeyPressChar(task.Key); }
+                                else
+                                {
+                                    for (int i = 0; i < keys.Length; i++)
+                                    {
+                                        ts.KeyDownChar(keys[i]);
+                                    }
+                                    for (int i = 0; i < keys.Length; i++)
+                                    {
+                                        if (keys[i].ToLower() == "shift" || keys[i].ToLower() == "alt" || keys[i].ToLower() == "ctrl")
+                                        {
+                                            ts.KeyPressChar(keys[i]);
+                                        }
+                                        else
+                                        {
+                                            ts.KeyUpChar(keys[i]);
+                                        }
+                                    }
+                                }
                             }
                             break;
                         case PressTask.PType.LM:
@@ -81,10 +100,12 @@ namespace Mykey
                                 break;
                             }
                     }
+                    Debug.WriteLine(currentTask.Key);
                     lock (this)
                     {
                         currentTask = null;
                     }
+                    
                 }
                 Thread.Sleep(1);
             }
