@@ -233,7 +233,6 @@ public partial class Mykey : Form
         if (ModifyHotkeyButton.Text == "按下你想要的热键")
         {
             _cancelLastKeySet?.Invoke();
-            _setOtherDisable(false);
             return;
         }
         _cancelLastKeySet?.Invoke();
@@ -246,12 +245,14 @@ public partial class Mykey : Form
             Config.Instance.HotKey = keyname;
             Config.Save();
             _cancelLastKeySet = null;
+            _handleKeySet = null;
             _setOtherDisable(false);
         };
         _cancelLastKeySet = () =>
         {
             loadConfig();
             _cancelLastKeySet = null;
+            _handleKeySet = null;
             _setOtherDisable(false);
         };
     }
