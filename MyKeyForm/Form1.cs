@@ -215,29 +215,38 @@ public partial class Mykey : Form
 
     Action? _cancelLastKeySet;
     Action<string>? _handleKeySet;
+    void _setOtherDisable(bool disable)
+    {
+        NameTextBox.Enabled = !disable;
+        PressKeyTextBox.Enabled = !disable;
+        IntervalTextBox.Enabled = !disable;
+        Plans.Enabled = !disable;
+    }
     private void ModifyHotkeyButton_Click(object sender, EventArgs e)
     {
-        if (ModifyHotkeyButton.Text == "取消")
+        if (ModifyHotkeyButton.Text == "按下你想要的热键")
         {
             _cancelLastKeySet?.Invoke();
+            _setOtherDisable(false);
             return;
         }
         _cancelLastKeySet?.Invoke();
         UnsetHotKey();
         ModifyHotkeyButton.Text = "按下你想要的热键";
-        ModifyHotkeyButton.Text = "取消";
+        _setOtherDisable(true);
         _handleKeySet = (string keyname) =>
         {
             ModifyHotkeyButton.Text = keyname;
             Config.Instance.HotKey = keyname;
             Config.Save();
             _cancelLastKeySet = null;
+            _setOtherDisable(false);
         };
         _cancelLastKeySet = () =>
         {
-            ModifyHotkeyButton.Text = "修改";
             loadConfig();
             _cancelLastKeySet = null;
+            _setOtherDisable(false);
         };
     }
 
