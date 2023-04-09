@@ -123,7 +123,17 @@ public partial class Mykey : Form
         if (last_index == -1 && Config.Instance.CurrentIndex <= Plans.Items.Count)
         {
             last_index = Config.Instance.CurrentIndex;
-            Plans.SetItemChecked(last_index, true);
+            if (last_index == -1)
+            {
+                PressKeyLabel.Text = "";
+                IntervalLabel.Text = "";
+                NameLabel.Text = "";
+            }
+            else
+            {
+                Plans.SetItemChecked(last_index, true);
+            }
+            
         }
         while (Config.Instance.Configs.Count < Plans.Items.Count)
         {
@@ -150,7 +160,21 @@ public partial class Mykey : Form
 
     private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
-        pressKey.PressKeyChar(currentConfig.GetKeyChar());
+        if (currentConfig == null) return;
+        var targetKey = currentConfig.GetKeyChar();
+        switch (targetKey)
+        {
+            case "LM":
+                pressKey.LeftClick();
+                break;
+            case "RM":
+                pressKey.RightClick();
+                break;
+            default:
+                pressKey.PressKeyChar(targetKey);
+                break;
+        }
+        
     }
 
     void StopKey()
@@ -193,6 +217,7 @@ public partial class Mykey : Form
     int last_index = -1;
     private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if (Plans.SelectedIndex == -1) return;
         if (last_index != Plans.SelectedIndex)
         {
             last_index = Plans.SelectedIndex;
