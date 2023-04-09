@@ -190,7 +190,11 @@ public partial class Mykey : Form
 
     private void HelpButton_Click(object sender, EventArgs e)
     {
-        MessageBox.Show("编辑config.json进行配置。\nHotKey：配置开启、关闭的热键。\nPressKey：配置要按的键，可以多个，用 | 分割。", "说明");
+        MessageBox.Show("【开始停止】：点击按钮后，按下启动键修改开始/停止的热键。\n" +
+            "【按键列表】：输入要按的键，可以输入多个，用 | 分割，在运行时将依次按下。输入LM代表鼠标左键，RM代表鼠标右键。\n" +
+            "【按键间隔】：以毫秒为单位。\n" +
+            "【管理员】：某些应用可能需要管理员权限打开本程序才可生效。\n" +
+            "【开源地址】：https://github.com/dicarne/Mykey", "说明");
     }
 
     int last_index = -1;
@@ -305,5 +309,14 @@ public partial class Mykey : Form
         }
         loadConfig();
         Config.SaveNow();
+    }
+
+    private void GitHubButton_Click(object sender, EventArgs e)
+    {
+        Process.Start(new ProcessStartInfo()
+        {
+            UseShellExecute = true,
+            FileName = "https://github.com/dicarne/Mykey"
+        });
     }
 }

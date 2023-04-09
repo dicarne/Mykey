@@ -43,95 +43,87 @@
             IntervalTextBox = new TextBox();
             CreateButton = new Button();
             DeleteButton = new Button();
+            GitHubButton = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 29);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(24, 25);
             label1.Name = "label1";
-            label1.Size = new Size(54, 20);
+            label1.Size = new Size(68, 17);
             label1.TabIndex = 0;
-            label1.Text = "状态：";
+            label1.Text = "运行状态：";
             // 
             // StatueLabel
             // 
             StatueLabel.AutoSize = true;
-            StatueLabel.Location = new Point(95, 29);
-            StatueLabel.Margin = new Padding(4, 0, 4, 0);
+            StatueLabel.Location = new Point(100, 25);
             StatueLabel.Name = "StatueLabel";
-            StatueLabel.Size = new Size(39, 20);
+            StatueLabel.Size = new Size(32, 17);
             StatueLabel.TabIndex = 1;
             StatueLabel.Text = "停止";
             // 
             // HelpButton
             // 
-            HelpButton.Location = new Point(32, 374);
-            HelpButton.Margin = new Padding(4);
+            HelpButton.Location = new Point(25, 317);
             HelpButton.Name = "HelpButton";
-            HelpButton.Size = new Size(96, 28);
+            HelpButton.Size = new Size(30, 26);
             HelpButton.TabIndex = 2;
-            HelpButton.Text = "说明";
+            HelpButton.Text = "?";
             HelpButton.UseVisualStyleBackColor = true;
             HelpButton.Click += HelpButton_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(32, 66);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(25, 56);
             label2.Name = "label2";
-            label2.Size = new Size(90, 20);
+            label2.Size = new Size(73, 17);
             label2.TabIndex = 3;
-            label2.Text = "开启/停止：";
+            label2.Text = "开始/停止：";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(32, 133);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new Point(25, 113);
             label3.Name = "label3";
-            label3.Size = new Size(54, 20);
+            label3.Size = new Size(68, 17);
             label3.TabIndex = 5;
-            label3.Text = "按键：";
+            label3.Text = "按键列表：";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(32, 166);
-            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Location = new Point(25, 141);
             label4.Name = "label4";
-            label4.Size = new Size(54, 20);
+            label4.Size = new Size(68, 17);
             label4.TabIndex = 7;
-            label4.Text = "间隔：";
+            label4.Text = "按键间隔：";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(32, 100);
-            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Location = new Point(25, 85);
             label5.Name = "label5";
-            label5.Size = new Size(54, 20);
+            label5.Size = new Size(68, 17);
             label5.TabIndex = 9;
-            label5.Text = "名称：";
+            label5.Text = "方案名称：";
             // 
             // Plans
             // 
             Plans.FormattingEnabled = true;
-            Plans.Location = new Point(32, 206);
-            Plans.Margin = new Padding(4);
+            Plans.Location = new Point(25, 175);
             Plans.Name = "Plans";
-            Plans.Size = new Size(335, 136);
+            Plans.Size = new Size(261, 130);
             Plans.TabIndex = 11;
             Plans.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // ModifyHotkeyButton
             // 
-            ModifyHotkeyButton.Location = new Point(129, 63);
-            ModifyHotkeyButton.Margin = new Padding(4);
+            ModifyHotkeyButton.Location = new Point(100, 54);
             ModifyHotkeyButton.Name = "ModifyHotkeyButton";
-            ModifyHotkeyButton.Size = new Size(238, 27);
+            ModifyHotkeyButton.Size = new Size(185, 23);
             ModifyHotkeyButton.TabIndex = 12;
             ModifyHotkeyButton.Text = "修改";
             ModifyHotkeyButton.UseVisualStyleBackColor = true;
@@ -140,41 +132,44 @@
             // AdminTest
             // 
             AdminTest.AutoSize = true;
-            AdminTest.Location = new Point(86, 9);
-            AdminTest.Margin = new Padding(4, 0, 4, 0);
+            AdminTest.Location = new Point(24, 9);
             AdminTest.Name = "AdminTest";
-            AdminTest.Size = new Size(0, 20);
+            AdminTest.Size = new Size(0, 17);
             AdminTest.TabIndex = 13;
             // 
             // NameTextBox
             // 
-            NameTextBox.Location = new Point(129, 97);
+            NameTextBox.Location = new Point(100, 82);
+            NameTextBox.Margin = new Padding(2, 3, 2, 3);
             NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(238, 27);
+            NameTextBox.Size = new Size(186, 23);
             NameTextBox.TabIndex = 14;
             NameTextBox.TextChanged += NameTextBox_TextChanged;
             // 
             // PressKeyTextBox
             // 
-            PressKeyTextBox.Location = new Point(129, 130);
+            PressKeyTextBox.Location = new Point(100, 110);
+            PressKeyTextBox.Margin = new Padding(2, 3, 2, 3);
             PressKeyTextBox.Name = "PressKeyTextBox";
-            PressKeyTextBox.Size = new Size(238, 27);
+            PressKeyTextBox.Size = new Size(186, 23);
             PressKeyTextBox.TabIndex = 15;
             PressKeyTextBox.TextChanged += PressKeyTextBox_TextChanged;
             // 
             // IntervalTextBox
             // 
-            IntervalTextBox.Location = new Point(129, 163);
+            IntervalTextBox.Location = new Point(100, 139);
+            IntervalTextBox.Margin = new Padding(2, 3, 2, 3);
             IntervalTextBox.Name = "IntervalTextBox";
-            IntervalTextBox.Size = new Size(238, 27);
+            IntervalTextBox.Size = new Size(186, 23);
             IntervalTextBox.TabIndex = 16;
             IntervalTextBox.TextChanged += IntervalTextBox_TextChanged;
             // 
             // CreateButton
             // 
-            CreateButton.Location = new Point(155, 374);
+            CreateButton.Location = new Point(130, 318);
+            CreateButton.Margin = new Padding(2, 3, 2, 3);
             CreateButton.Name = "CreateButton";
-            CreateButton.Size = new Size(94, 29);
+            CreateButton.Size = new Size(73, 25);
             CreateButton.TabIndex = 17;
             CreateButton.Text = "新建方案";
             CreateButton.UseVisualStyleBackColor = true;
@@ -182,19 +177,31 @@
             // 
             // DeleteButton
             // 
-            DeleteButton.Location = new Point(273, 374);
+            DeleteButton.Location = new Point(207, 318);
+            DeleteButton.Margin = new Padding(2, 3, 2, 3);
             DeleteButton.Name = "DeleteButton";
-            DeleteButton.Size = new Size(94, 29);
+            DeleteButton.Size = new Size(73, 25);
             DeleteButton.TabIndex = 18;
             DeleteButton.Text = "删除方案";
             DeleteButton.UseVisualStyleBackColor = true;
             DeleteButton.Click += DeleteButton_Click;
             // 
+            // GitHubButton
+            // 
+            GitHubButton.Location = new Point(60, 318);
+            GitHubButton.Name = "GitHubButton";
+            GitHubButton.Size = new Size(65, 25);
+            GitHubButton.TabIndex = 19;
+            GitHubButton.Text = "GitHub";
+            GitHubButton.UseVisualStyleBackColor = true;
+            GitHubButton.Click += GitHubButton_Click;
+            // 
             // Mykey
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(420, 415);
+            ClientSize = new Size(315, 359);
+            Controls.Add(GitHubButton);
             Controls.Add(DeleteButton);
             Controls.Add(CreateButton);
             Controls.Add(IntervalTextBox);
@@ -212,7 +219,6 @@
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
-            Margin = new Padding(4);
             MaximizeBox = false;
             Name = "Mykey";
             Text = "Mykey";
@@ -239,5 +245,6 @@
         private TextBox IntervalTextBox;
         private Button CreateButton;
         private Button DeleteButton;
+        private Button GitHubButton;
     }
 }
