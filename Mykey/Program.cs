@@ -29,7 +29,7 @@ namespace Mykey
             //p.WaitForExit();
             ts = new TSPlugInterFaceClass();
             ts.EnableRealKeypad(1);
-            ts.SetSimMode(0);
+            ts.SetSimMode(1);
             Task.Run(KeyHandleLoop);
         }
         class PressTask
