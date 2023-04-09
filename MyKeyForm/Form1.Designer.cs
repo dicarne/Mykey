@@ -177,7 +177,9 @@
             Controls.Add(HelpButton);
             Controls.Add(StatueLabel);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
+            MaximizeBox = false;
             Name = "Mykey";
             Text = "Mykey";
             Load += Form1_Load;
