@@ -103,9 +103,9 @@ public partial class Mykey : Form
         }
         if (currentConfig != null)
         {
-            PressKeyLabel.Text = currentConfig.PressKey;
-            IntervalLabel.Text = currentConfig.Interval.ToString();
-            NameLabel.Text = currentConfig.ConfigName;
+            PressKeyTextBox.Text = currentConfig.PressKey;
+            IntervalTextBox.Text = currentConfig.Interval.ToString();
+            NameTextBox.Text = currentConfig.ConfigName;
 
             timer.Interval = currentConfig.Interval;
         }
@@ -125,15 +125,15 @@ public partial class Mykey : Form
             last_index = Config.Instance.CurrentIndex;
             if (last_index == -1)
             {
-                PressKeyLabel.Text = "";
-                IntervalLabel.Text = "";
-                NameLabel.Text = "";
+                PressKeyTextBox.Text = "";
+                IntervalTextBox.Text = "";
+                NameTextBox.Text = "";
             }
             else
             {
                 Plans.SetItemChecked(last_index, true);
             }
-            
+
         }
         while (Config.Instance.Configs.Count < Plans.Items.Count)
         {
@@ -174,7 +174,7 @@ public partial class Mykey : Form
                 pressKey.PressKeyChar(targetKey);
                 break;
         }
-        
+
     }
 
     void StopKey()
@@ -267,5 +267,33 @@ public partial class Mykey : Form
     private void Mykey_KeyDown(object sender, KeyEventArgs e)
     {
         _handleKeySet?.Invoke(e.KeyCode.ToString());
+    }
+
+    private void NameTextBox_TextChanged(object sender, EventArgs e)
+    {
+        if (currentConfig != null)
+        {
+            currentConfig.ConfigName = NameTextBox.Text;
+            Config.Save();
+        }
+    }
+
+    private void PressKeyTextBox_TextChanged(object sender, EventArgs e)
+    {
+        if (currentConfig != null)
+        {
+            currentConfig.PressKey = PressKeyTextBox.Text;
+            Config.Save();
+        }
+    }
+
+    private void IntervalTextBox_TextChanged(object sender, EventArgs e)
+    {
+        if (currentConfig != null)
+        {
+            int.TryParse(IntervalTextBox.Text, out var interval);
+            currentConfig.Interval = interval;
+            Config.Save();
+        }
     }
 }
