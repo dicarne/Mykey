@@ -81,6 +81,7 @@ public class ConfigItem
     public string ConfigName { get; set; } = "新方案";
     //public string HotKey { get; set; }
     public int Interval { get; set; } = 100;
+
     public string PressKey { get; set; } = "";
     //public Keys GetHotKey()
     //{
@@ -90,10 +91,10 @@ public class ConfigItem
     {
         return Enum.Parse<Keys>(PressKey);
     }
-    string[]? _tmp_keys;
+    string[] _tmp_keys = new string[0];
     public string GetKeyChar()
     {
-        _tmp_keys ??= PressKey.Split("|");
+        _tmp_keys = PressKey.Split("|");
         if (RunIndex >= _tmp_keys.Length) RunIndex = 0;
         var r = _tmp_keys[RunIndex].Trim();
         RunIndex++;

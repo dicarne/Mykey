@@ -150,6 +150,7 @@ public partial class Mykey : Form
     private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         if (currentConfig == null) return;
+        
         var targetKey = currentConfig.GetKeyChar();
         switch (targetKey)
         {
@@ -163,7 +164,7 @@ public partial class Mykey : Form
                 pressKey.PressKeyChar(targetKey);
                 break;
         }
-
+        Thread.Sleep(1);
     }
 
     void StopKey()
@@ -307,6 +308,11 @@ public partial class Mykey : Form
         if (currentConfig != null)
         {
             int.TryParse(IntervalTextBox.Text, out var interval);
+            if(interval < 1)
+            {
+                MessageBox.Show("按键间隔不能小于1！");
+                return;
+            }
             currentConfig.Interval = interval;
             Config.Save();
             loadConfig();
