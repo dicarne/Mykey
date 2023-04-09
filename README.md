@@ -1,36 +1,16 @@
 # Mykey
 
 ## 依赖
-.net7 运行时。
+.net7 运行时。若没有安装环境，则第一次启动将会自动打开环境安装网页，下载并安装即可。
 
 ## 使用说明
-打开可执行文件，稍等片刻，可以在同级文件夹下看到config.json，用编辑器打开它。因为没做可视化的编辑器，所以直接编辑JSON。
+![image](https://user-images.githubusercontent.com/10357789/230761169-f1c47082-4140-436c-ac50-c2cc68d7c85e.png)
 
-```json
-{
-    "Configs": [
-        {
-            "ConfigName": "Example",
-            "Interval": 1000,
-            "PressKey": "F10"
-        }
-    ],
-    "CurrentIndex": 0,
-    "HotKey": "F7"
-}
-```
+点击开始/停止旁边的按钮，再按下对应按键，即可绑定开始/停止按键精灵的热键。
 
-`CurrentIndex`: 当前选择的方案索引位置。
+按键列表中可输入多个按键，包括F1~F12、LM（鼠标左键点击）、RM（鼠标右键点击）。暂时不支持Ctrl、Shift等修饰键。当输入多个按键时，需要用`|`分割，例如`a|b|c|F10`，那么启动后会按照`a`、`b`、`c`、`F10`的次序依次按下，并在结束一轮后重新开始，无限循环按键。
 
-`HotKey`: 切换开始、结束的按键名，名称必须在 [HotKey.cs](https://github.com/dicarne/Mykey/blob/main/Mykey/HotKey.cs) 中的Keys中有。
-
-`Configs`: 保存多个配置方案，可切换。
-
-`ConfigName`: 方案名称。
-
-`Interval`: 按键间隔，单位毫秒。
-
-`PressKey`: 按下的按键，可以填写多个，用`|`分割开来。在运行时会依次按下。
+按键间隔以毫秒为单位，1000为1秒。尽量不要输入太小，如0。
 
 ## 工作原理
 使用TS驱动模拟按键，是前台按键，不能在后台进行按键，也没有后台按键的开发计划。
