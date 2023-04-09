@@ -20,10 +20,4 @@
     </COMReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="TSPlugLib">
-      <HintPath>TSPlugLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

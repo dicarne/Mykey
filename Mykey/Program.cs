@@ -1,4 +1,5 @@
-﻿using TSPlugLib;
+﻿using System.Diagnostics;
+using TSPlugLib;
 
 namespace Mykey
 {
@@ -15,12 +16,12 @@ namespace Mykey
         ITSPlugInterFace ts;
         public PressKey()
         {
+            var p = new Process();
+            p.StartInfo.FileName = "Regsvr32.exe";
+            p.StartInfo.Arguments = "/s TS.dll";//路径中不能有空格
+            p.Start();
+            p.WaitForExit();
             ts = new TSPlugInterFaceClass();
-#if false
-            ts.SetUAC(1);
-            var uacResult = ts.CheckUAC();
-            if (uacResult == 0) { Console.WriteLine("请用管理员权限运行！"); }
-#endif
             ts.EnableRealKeypad(1);
             ts.SetSimMode(0);
         }
