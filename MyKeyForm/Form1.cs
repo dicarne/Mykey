@@ -331,13 +331,19 @@ public partial class Mykey : Form
 
     private void DeleteButton_Click(object sender, EventArgs e)
     {
-        Config.Instance.Configs.RemoveAt(Config.Instance.CurrentIndex);
-        if (Config.Instance.CurrentIndex == Config.Instance.Configs.Count)
+        DialogResult AF = MessageBox.Show("您确定删除吗？", "确认框", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+        if (AF == DialogResult.OK)
         {
-            Config.Instance.CurrentIndex--;
+            Config.Instance.Configs.RemoveAt(Config.Instance.CurrentIndex);
+            if (Config.Instance.CurrentIndex == Config.Instance.Configs.Count)
+            {
+                Config.Instance.CurrentIndex--;
+            }
+            loadConfig();
+            Config.SaveNow();
         }
-        loadConfig();
-        Config.SaveNow();
+
+
     }
 
     private void GitHubButton_Click(object sender, EventArgs e)
