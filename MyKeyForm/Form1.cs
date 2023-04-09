@@ -210,6 +210,11 @@ public partial class Mykey : Form
     Action<string>? _handleKeySet;
     private void ModifyHotkeyButton_Click(object sender, EventArgs e)
     {
+        if(ModifyHotkeyButton.Text == "取消")
+        {
+            _cancelLastKeySet?.Invoke();
+            return;
+        }
         _cancelLastKeySet?.Invoke();
         UnsetHotKey();
         StartStopLabel.Text = "按下你想要的热键";
@@ -220,11 +225,13 @@ public partial class Mykey : Form
             Config.Instance.HotKey = keyname;
             ModifyHotkeyButton.Text = "修改";
             Config.Save();
+            _cancelLastKeySet = null;
         };
         _cancelLastKeySet = () =>
         {
             ModifyHotkeyButton.Text = "修改";
             loadConfig();
+            _cancelLastKeySet = null;
         };
     }
 
