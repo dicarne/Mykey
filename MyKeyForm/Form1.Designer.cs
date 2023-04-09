@@ -221,7 +221,7 @@
             KeyPreview = true;
             MaximizeBox = false;
             Name = "Mykey";
-            Text = "Mykey";
+            Text = "MyKey";
             Load += Form1_Load;
             KeyDown += Mykey_KeyDown;
             ResumeLayout(false);

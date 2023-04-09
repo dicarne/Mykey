@@ -83,7 +83,7 @@ public partial class Mykey : Form
                 ModifyHotkeyButton.Text = Config.Instance.HotKey;
                 currentHotKey = Config.Instance.HotKey;
             }
-            
+
         }
         if (currentConfig != null)
         {
@@ -208,7 +208,8 @@ public partial class Mykey : Form
 
     private void HelpButton_Click(object sender, EventArgs e)
     {
-        MessageBox.Show("【开始停止】：点击按钮后，按下启动键修改开始/停止的热键。\n" +
+        MessageBox.Show($"【当前版本】：V{Program.Version}\n" +
+            "【开始停止】：点击按钮后，按下启动键修改开始/停止的热键。\n" +
             "【按键列表】：输入要按的键，可以输入多个，用 | 分割，在运行时将依次按下。输入LM代表鼠标左键，RM代表鼠标右键。\n" +
             "【按键间隔】：以毫秒为单位。按键将尽最大努力按照指定时间进行按键，但如果间隔太小了，实际按键间隔将大于设定间隔。\n" +
             "【管理员权限】：某些应用可能需要管理员权限打开本程序才可生效。\n" +
@@ -308,7 +309,7 @@ public partial class Mykey : Form
         if (currentConfig != null)
         {
             int.TryParse(IntervalTextBox.Text, out var interval);
-            if(interval < 1)
+            if (interval < 1)
             {
                 MessageBox.Show("按键间隔不能小于1！");
                 return;
