@@ -32,7 +32,6 @@
             StatueLabel = new Label();
             HelpButton = new Button();
             label2 = new Label();
-            StartStopLabel = new Label();
             label3 = new Label();
             PressKeyLabel = new Label();
             label4 = new Label();
@@ -79,15 +78,6 @@
             label2.Size = new Size(73, 17);
             label2.TabIndex = 3;
             label2.Text = "开启/停止：";
-            // 
-            // StartStopLabel
-            // 
-            StartStopLabel.AutoSize = true;
-            StartStopLabel.Location = new Point(111, 60);
-            StartStopLabel.Name = "StartStopLabel";
-            StartStopLabel.Size = new Size(48, 17);
-            StartStopLabel.TabIndex = 4;
-            StartStopLabel.Text = "NotSet";
             // 
             // label3
             // 
@@ -152,9 +142,9 @@
             // 
             // ModifyHotkeyButton
             // 
-            ModifyHotkeyButton.Location = new Point(231, 60);
+            ModifyHotkeyButton.Location = new Point(103, 57);
             ModifyHotkeyButton.Name = "ModifyHotkeyButton";
-            ModifyHotkeyButton.Size = new Size(75, 23);
+            ModifyHotkeyButton.Size = new Size(185, 23);
             ModifyHotkeyButton.TabIndex = 12;
             ModifyHotkeyButton.Text = "修改";
             ModifyHotkeyButton.UseVisualStyleBackColor = true;
@@ -173,7 +163,6 @@
             Controls.Add(label4);
             Controls.Add(PressKeyLabel);
             Controls.Add(label3);
-            Controls.Add(StartStopLabel);
             Controls.Add(label2);
             Controls.Add(HelpButton);
             Controls.Add(StatueLabel);
@@ -193,7 +182,6 @@
         private Label StatueLabel;
         private Button HelpButton;
         private Label label2;
-        private Label StartStopLabel;
         private Label label3;
         private Label PressKeyLabel;
         private Label label4;

@@ -93,7 +93,7 @@ public partial class Mykey : Form
         if (!_alreadySetHotKey || currentHotKey != Config.Instance.HotKey)
         {
             SetHotKey();
-            StartStopLabel.Text = Config.Instance.HotKey;
+            ModifyHotkeyButton.Text = Config.Instance.HotKey;
             currentHotKey = Config.Instance.HotKey;
         }
         if (currentConfig != null)
@@ -210,20 +210,19 @@ public partial class Mykey : Form
     Action<string>? _handleKeySet;
     private void ModifyHotkeyButton_Click(object sender, EventArgs e)
     {
-        if(ModifyHotkeyButton.Text == "取消")
+        if (ModifyHotkeyButton.Text == "取消")
         {
             _cancelLastKeySet?.Invoke();
             return;
         }
         _cancelLastKeySet?.Invoke();
         UnsetHotKey();
-        StartStopLabel.Text = "按下你想要的热键";
+        ModifyHotkeyButton.Text = "按下你想要的热键";
         ModifyHotkeyButton.Text = "取消";
         _handleKeySet = (string keyname) =>
         {
-            StartStopLabel.Text = keyname;
+            ModifyHotkeyButton.Text = keyname;
             Config.Instance.HotKey = keyname;
-            ModifyHotkeyButton.Text = "修改";
             Config.Save();
             _cancelLastKeySet = null;
         };
