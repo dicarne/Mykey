@@ -40,6 +40,7 @@
             NameLabel = new Label();
             Plans = new CheckedListBox();
             ModifyHotkeyButton = new Button();
+            AdminTest = new Label();
             SuspendLayout();
             // 
             // label1
@@ -54,7 +55,7 @@
             // StatueLabel
             // 
             StatueLabel.AutoSize = true;
-            StatueLabel.Location = new Point(65, 26);
+            StatueLabel.Location = new Point(74, 25);
             StatueLabel.Name = "StatueLabel";
             StatueLabel.Size = new Size(32, 17);
             StatueLabel.TabIndex = 1;
@@ -150,11 +151,20 @@
             ModifyHotkeyButton.UseVisualStyleBackColor = true;
             ModifyHotkeyButton.Click += ModifyHotkeyButton_Click;
             // 
+            // AdminTest
+            // 
+            AdminTest.AutoSize = true;
+            AdminTest.Location = new Point(100, 325);
+            AdminTest.Name = "AdminTest";
+            AdminTest.Size = new Size(0, 17);
+            AdminTest.TabIndex = 13;
+            // 
             // Mykey
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(327, 353);
+            Controls.Add(AdminTest);
             Controls.Add(ModifyHotkeyButton);
             Controls.Add(Plans);
             Controls.Add(NameLabel);
@@ -190,5 +200,6 @@
         private Label NameLabel;
         private CheckedListBox Plans;
         private Button ModifyHotkeyButton;
+        private Label AdminTest;
     }
 }

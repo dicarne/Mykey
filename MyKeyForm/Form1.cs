@@ -22,6 +22,11 @@ public partial class Mykey : Form
         watcher.Path = "./";
         watcher.Filter = "config.json";
         watcher.EnableRaisingEvents = true;
+
+        if (!pressKey.IsUAC())
+        {
+            AdminTest.Text = "若按键无效，以管理员权限重启！";
+        }
     }
 
     private void Watcher_Changed(object sender, FileSystemEventArgs e)

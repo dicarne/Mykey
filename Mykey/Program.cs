@@ -6,7 +6,7 @@ namespace Mykey
     {
         static void Main(string[] args)
         {
-           
+
         }
     }
 
@@ -28,6 +28,14 @@ namespace Mykey
         public void PressKeyChar(string oneKey)
         {
             ts.KeyPressChar(oneKey);
+        }
+
+        public bool IsUAC()
+        {
+            ts.SetUAC(1);
+            var uacResult = ts.CheckUAC();
+            if (uacResult == 0) { return false; }
+            return true;
         }
     }
 }
