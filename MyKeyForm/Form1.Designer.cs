@@ -33,39 +33,42 @@
             HelpButton = new Button();
             label2 = new Label();
             label3 = new Label();
-            PressKeyLabel = new Label();
             label4 = new Label();
-            IntervalLabel = new Label();
             label5 = new Label();
-            NameLabel = new Label();
             Plans = new CheckedListBox();
             ModifyHotkeyButton = new Button();
             AdminTest = new Label();
+            NameTextBox = new TextBox();
+            PressKeyTextBox = new TextBox();
+            IntervalTextBox = new TextBox();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(24, 25);
+            label1.Location = new Point(31, 29);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(44, 17);
+            label1.Size = new Size(54, 20);
             label1.TabIndex = 0;
             label1.Text = "状态：";
             // 
             // StatueLabel
             // 
             StatueLabel.AutoSize = true;
-            StatueLabel.Location = new Point(74, 25);
+            StatueLabel.Location = new Point(95, 29);
+            StatueLabel.Margin = new Padding(4, 0, 4, 0);
             StatueLabel.Name = "StatueLabel";
-            StatueLabel.Size = new Size(32, 17);
+            StatueLabel.Size = new Size(39, 20);
             StatueLabel.TabIndex = 1;
             StatueLabel.Text = "停止";
             // 
             // HelpButton
             // 
-            HelpButton.Location = new Point(19, 322);
+            HelpButton.Location = new Point(24, 379);
+            HelpButton.Margin = new Padding(4);
             HelpButton.Name = "HelpButton";
-            HelpButton.Size = new Size(75, 23);
+            HelpButton.Size = new Size(96, 27);
             HelpButton.TabIndex = 2;
             HelpButton.Text = "说明";
             HelpButton.UseVisualStyleBackColor = true;
@@ -74,78 +77,59 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(24, 60);
+            label2.Location = new Point(32, 66);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(73, 17);
+            label2.Size = new Size(90, 20);
             label2.TabIndex = 3;
             label2.Text = "开启/停止：";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(25, 115);
+            label3.Location = new Point(32, 133);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(44, 17);
+            label3.Size = new Size(54, 20);
             label3.TabIndex = 5;
             label3.Text = "按键：";
-            // 
-            // PressKeyLabel
-            // 
-            PressKeyLabel.AutoSize = true;
-            PressKeyLabel.Location = new Point(96, 115);
-            PressKeyLabel.Name = "PressKeyLabel";
-            PressKeyLabel.Size = new Size(0, 17);
-            PressKeyLabel.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(25, 143);
+            label4.Location = new Point(32, 166);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(44, 17);
+            label4.Size = new Size(54, 20);
             label4.TabIndex = 7;
             label4.Text = "间隔：";
-            // 
-            // IntervalLabel
-            // 
-            IntervalLabel.AutoSize = true;
-            IntervalLabel.Location = new Point(96, 143);
-            IntervalLabel.Name = "IntervalLabel";
-            IntervalLabel.Size = new Size(15, 17);
-            IntervalLabel.TabIndex = 8;
-            IntervalLabel.Text = "0";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(24, 87);
+            label5.Location = new Point(32, 100);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(44, 17);
+            label5.Size = new Size(54, 20);
             label5.TabIndex = 9;
             label5.Text = "名称：";
-            // 
-            // NameLabel
-            // 
-            NameLabel.AutoSize = true;
-            NameLabel.Location = new Point(96, 87);
-            NameLabel.Name = "NameLabel";
-            NameLabel.Size = new Size(0, 17);
-            NameLabel.TabIndex = 10;
             // 
             // Plans
             // 
             Plans.FormattingEnabled = true;
-            Plans.Location = new Point(25, 175);
+            Plans.Location = new Point(32, 206);
+            Plans.Margin = new Padding(4);
             Plans.Name = "Plans";
-            Plans.Size = new Size(270, 130);
+            Plans.Size = new Size(346, 136);
             Plans.TabIndex = 11;
             Plans.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // ModifyHotkeyButton
             // 
-            ModifyHotkeyButton.Location = new Point(103, 57);
+            ModifyHotkeyButton.Location = new Point(129, 63);
+            ModifyHotkeyButton.Margin = new Padding(4);
             ModifyHotkeyButton.Name = "ModifyHotkeyButton";
-            ModifyHotkeyButton.Size = new Size(185, 23);
+            ModifyHotkeyButton.Size = new Size(238, 27);
             ModifyHotkeyButton.TabIndex = 12;
             ModifyHotkeyButton.Text = "修改";
             ModifyHotkeyButton.UseVisualStyleBackColor = true;
@@ -154,24 +138,49 @@
             // AdminTest
             // 
             AdminTest.AutoSize = true;
-            AdminTest.Location = new Point(100, 325);
+            AdminTest.Location = new Point(129, 382);
+            AdminTest.Margin = new Padding(4, 0, 4, 0);
             AdminTest.Name = "AdminTest";
-            AdminTest.Size = new Size(0, 17);
+            AdminTest.Size = new Size(0, 20);
             AdminTest.TabIndex = 13;
+            // 
+            // NameTextBox
+            // 
+            NameTextBox.Location = new Point(129, 97);
+            NameTextBox.Name = "NameTextBox";
+            NameTextBox.Size = new Size(238, 27);
+            NameTextBox.TabIndex = 14;
+            NameTextBox.TextChanged += NameTextBox_TextChanged;
+            // 
+            // PressKeyTextBox
+            // 
+            PressKeyTextBox.Location = new Point(129, 130);
+            PressKeyTextBox.Name = "PressKeyTextBox";
+            PressKeyTextBox.Size = new Size(238, 27);
+            PressKeyTextBox.TabIndex = 15;
+            PressKeyTextBox.TextChanged += PressKeyTextBox_TextChanged;
+            // 
+            // IntervalTextBox
+            // 
+            IntervalTextBox.Location = new Point(129, 163);
+            IntervalTextBox.Name = "IntervalTextBox";
+            IntervalTextBox.Size = new Size(238, 27);
+            IntervalTextBox.TabIndex = 16;
+            IntervalTextBox.TextChanged += IntervalTextBox_TextChanged;
             // 
             // Mykey
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(327, 353);
+            ClientSize = new Size(420, 415);
+            Controls.Add(IntervalTextBox);
+            Controls.Add(PressKeyTextBox);
+            Controls.Add(NameTextBox);
             Controls.Add(AdminTest);
             Controls.Add(ModifyHotkeyButton);
             Controls.Add(Plans);
-            Controls.Add(NameLabel);
             Controls.Add(label5);
-            Controls.Add(IntervalLabel);
             Controls.Add(label4);
-            Controls.Add(PressKeyLabel);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(HelpButton);
@@ -179,6 +188,7 @@
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             KeyPreview = true;
+            Margin = new Padding(4);
             MaximizeBox = false;
             Name = "Mykey";
             Text = "Mykey";
@@ -195,13 +205,13 @@
         private Button HelpButton;
         private Label label2;
         private Label label3;
-        private Label PressKeyLabel;
         private Label label4;
-        private Label IntervalLabel;
         private Label label5;
-        private Label NameLabel;
         private CheckedListBox Plans;
         private Button ModifyHotkeyButton;
         private Label AdminTest;
+        private TextBox NameTextBox;
+        private TextBox PressKeyTextBox;
+        private TextBox IntervalTextBox;
     }
 }

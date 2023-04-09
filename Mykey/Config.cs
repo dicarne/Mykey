@@ -13,6 +13,8 @@ public class Config
     public int CurrentIndex { get; set; } = 0;
     static Config instance = new Config();
     public static Config Instance => instance;
+
+    static DelayAction delayAction = new DelayAction();
     public static void Load()
     {
         if (File.Exists("config.json"))
@@ -47,7 +49,10 @@ public class Config
 
     public static void Save()
     {
-        File.WriteAllText("config.json", System.Text.Json.JsonSerializer.Serialize(instance));
+        delayAction.Debounce(500, null, () =>
+        {
+            File.WriteAllText("config.json", System.Text.Json.JsonSerializer.Serialize(instance));
+        });
     }
 
     public static ConfigItem? GetCurrentConfig()
