@@ -176,7 +176,7 @@
             CreateButton.Name = "CreateButton";
             CreateButton.Size = new Size(94, 29);
             CreateButton.TabIndex = 17;
-            CreateButton.Text = "新建";
+            CreateButton.Text = "新建方案";
             CreateButton.UseVisualStyleBackColor = true;
             CreateButton.Click += CreateButton_Click;
             // 
@@ -186,7 +186,7 @@
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(94, 29);
             DeleteButton.TabIndex = 18;
-            DeleteButton.Text = "删除";
+            DeleteButton.Text = "删除方案";
             DeleteButton.UseVisualStyleBackColor = true;
             DeleteButton.Click += DeleteButton_Click;
             // 

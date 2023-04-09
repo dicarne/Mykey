@@ -116,6 +116,8 @@ public partial class Mykey : Form
         {
             Plans.Items.RemoveAt(Plans.Items.Count - 1);
         }
+
+        _setOtherDisable(Config.Instance.Configs.Count == 0);
     }
 
     bool started = false;
@@ -297,7 +299,7 @@ public partial class Mykey : Form
     private void DeleteButton_Click(object sender, EventArgs e)
     {
         Config.Instance.Configs.RemoveAt(Config.Instance.CurrentIndex);
-        if(Config.Instance.CurrentIndex == Config.Instance.Configs.Count)
+        if (Config.Instance.CurrentIndex == Config.Instance.Configs.Count)
         {
             Config.Instance.CurrentIndex--;
         }
