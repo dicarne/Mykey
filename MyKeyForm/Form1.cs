@@ -222,7 +222,12 @@ public partial class Mykey : Form
 
     private void HelpButton_Click(object sender, EventArgs e)
     {
-        MessageBox.Show($"【当前版本】：V{Program.Version}\n" +
+        var version_check_string = $"";
+        if(Program.LatestVersion != "" && Program.LatestVersion != Program.Version)
+        {
+            version_check_string = $"【版本更新】：最新版本为{Program.LatestVersion}，可前往Github下载更新！\n";
+        }
+        MessageBox.Show($"【当前版本】：{Program.Version}\n" + version_check_string +
             "【开始停止】：点击按钮后，按下启动键修改开始/停止的热键。\n" +
             "【按键列表】：输入要按的键，可以输入多个，用 | 分割，在运行时将依次按下。输入LM代表鼠标左键，RM代表鼠标右键。如果需要同时按下多个键，则用\\分割，如：shift\\w\\e指的是按下shift和w、e的组合键。修饰键支持shift、alt、ctrl。\n" +
             "【按键间隔】：以毫秒为单位。按键将尽最大努力按照指定时间进行按键，但如果间隔太小了，实际按键间隔将大于设定间隔。\n" +
