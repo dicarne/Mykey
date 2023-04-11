@@ -67,16 +67,9 @@ namespace Mykey
                                     {
                                         ts.KeyDownChar(keys[i]);
                                     }
-                                    for (int i = 0; i < keys.Length; i++)
+                                    for (int i = keys.Length - 1; i >= 0; i--)
                                     {
-                                        if (keys[i].ToLower() == "shift" || keys[i].ToLower() == "alt" || keys[i].ToLower() == "ctrl")
-                                        {
-                                            ts.KeyPressChar(keys[i]);
-                                        }
-                                        else
-                                        {
-                                            ts.KeyUpChar(keys[i]);
-                                        }
+                                        ts.KeyPressChar(keys[i]);
                                     }
                                 }
                             }
@@ -105,7 +98,7 @@ namespace Mykey
                     {
                         currentTask = null;
                     }
-                    
+
                 }
                 Thread.Sleep(1);
             }

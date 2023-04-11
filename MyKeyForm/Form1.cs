@@ -28,7 +28,10 @@ public partial class Mykey : Form
     private const int WM_HOTKEY = 0x312; //窗口消息-热键
     private const int WM_CREATE = 0x1; //窗口消息-创建
     private const int WM_DESTROY = 0x2; //窗口消息-销毁
-    private const int Space = 0x3572; //热键ID
+    private const int HotKeyMessage = 0x3572; //热键ID
+    private const int HotKeyMessage2 = 0x3573; //热键ID
+    private const int HotKeyMessage3 = 0x3574; //热键ID
+    private const int HotKeyMessage4 = 0x3575; //热键ID
     protected override void WndProc(ref Message m)
     {
         base.WndProc(ref m);
@@ -38,7 +41,10 @@ public partial class Mykey : Form
             case WM_HOTKEY: //窗口消息-热键ID
                 switch (m.WParam.ToInt32())
                 {
-                    case Space: //热键ID
+                    case HotKeyMessage2:
+                    case HotKeyMessage3:
+                    case HotKeyMessage4:
+                    case HotKeyMessage: //热键ID
                         if (started)
                         {
                             StopKey();
@@ -183,7 +189,10 @@ public partial class Mykey : Form
     void UnsetHotKey()
     {
         _alreadySetHotKey = false;
-        HotKey.UnRegKey(Handle, Space); //销毁热键
+        HotKey.UnRegKey(Handle, HotKeyMessage); //销毁热键
+        HotKey.UnRegKey(Handle, HotKeyMessage2); //销毁热键
+        HotKey.UnRegKey(Handle, HotKeyMessage3); //销毁热键
+        HotKey.UnRegKey(Handle, HotKeyMessage4); //销毁热键
     }
 
     bool unvalidHotkey = false;
@@ -191,7 +200,7 @@ public partial class Mykey : Form
     {
         UnsetHotKey();
         _alreadySetHotKey = true;
-        var ret = HotKey.RegKey(Handle, Space, HotKey.KeyModifiers.None, Config.Instance.GetHotKey());
+        var ret = HotKey.RegKey(Handle, HotKeyMessage, HotKey.KeyModifiers.None, Config.Instance.GetHotKey());
         switch (ret)
         {
             case 1:
@@ -206,6 +215,9 @@ public partial class Mykey : Form
                 unvalidHotkey = false;
                 break;
         }
+        HotKey.RegKey(Handle, HotKeyMessage2, HotKey.KeyModifiers.Shift, Config.Instance.GetHotKey());
+        HotKey.RegKey(Handle, HotKeyMessage3, HotKey.KeyModifiers.Alt, Config.Instance.GetHotKey());
+        HotKey.RegKey(Handle, HotKeyMessage4, HotKey.KeyModifiers.Ctrl, Config.Instance.GetHotKey());
     }
 
     private void HelpButton_Click(object sender, EventArgs e)
