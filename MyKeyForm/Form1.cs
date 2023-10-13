@@ -17,13 +17,25 @@ public partial class Mykey : Form
         loadConfig();
         currentHotKey = Config.Instance.HotKey;
         timer.Elapsed += Timer_Elapsed;
-
-        if (!pressKey.IsUAC())
-        {
-            AdminTest.Text = "若按键无效，以管理员权限重启！";
-        }
+        _setOtherDisable(true);
+        StatueLabel.Text = "加载驱动中";
+        pressKey = new PressKey();
+        pressKey.OnReady += PressKey_OnReady;
+        pressKey.Start();
     }
 
+    private void PressKey_OnReady()
+    {
+        StatueLabel.Invoke(() =>
+        {
+            _setOtherDisable(false);
+            StatueLabel.Text = "就绪";
+            if (!pressKey.IsUAC())
+            {
+                AdminTest.Text = "若按键无效，以管理员权限重启！";
+            }
+        });
+    }
 
     private const int WM_HOTKEY = 0x312; //窗口消息-热键
     private const int WM_CREATE = 0x1; //窗口消息-创建
@@ -139,11 +151,12 @@ public partial class Mykey : Form
     bool started = false;
     Timer timer = new Timer();
     ConfigItem? currentConfig;
-    PressKey pressKey = new PressKey();
+    PressKey pressKey;
     void StartKey()
     {
         if (started) return;
         if (currentConfig == null) return;
+        if (!pressKey.IsReady) return;
         started = true;
         currentConfig.Reset();
         timer.Interval = currentConfig.Interval;

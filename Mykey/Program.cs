@@ -16,22 +16,6 @@ namespace Mykey
     public class PressKey
     {
         ITSPlugInterFace ts;
-        public PressKey()
-        {
-            var p = new Process();
-            p.StartInfo.FileName = "Regsvr32.exe";
-            p.StartInfo.Arguments = "/s TS.dll";
-            p.Start();
-            p.WaitForExitAsync().ContinueWith(t =>
-            {
-                completeDriverLoad = true;
-            });
-            //p.WaitForExit();
-            ts = new TSPlugInterFaceClass();
-            ts.EnableRealKeypad(1);
-            ts.SetSimMode(1);
-            Task.Run(KeyHandleLoop);
-        }
         class PressTask
         {
             public enum PType
@@ -43,6 +27,25 @@ namespace Mykey
         }
         PressTask? currentTask = null;
         bool completeDriverLoad = false;
+        public event Action? OnReady;
+        public bool IsReady => completeDriverLoad;
+        public void Start()
+        {
+            var p = new Process();
+            p.StartInfo.FileName = "Regsvr32.exe";
+            p.StartInfo.Arguments = "/s TS.dll";
+            p.Start();
+            p.WaitForExitAsync().ContinueWith(t =>
+            {
+                completeDriverLoad = true;
+                ts = new TSPlugInterFaceClass();
+                ts.EnableRealKeypad(1);
+                ts.SetSimMode(1);
+                OnReady?.Invoke();
+            });
+
+            Task.Run(KeyHandleLoop);
+        }
         void KeyHandleLoop()
         {
             while (true)
