@@ -1,6 +1,7 @@
 namespace MyKeyForm;
 using global::Mykey;
 using System.Diagnostics;
+using System.Media;
 using System.Timers;
 using System.Windows.Forms;
 using Keys = global::Mykey.Keys;
@@ -15,6 +16,7 @@ public partial class Mykey : Form
     private void Form1_Load(object sender, EventArgs e)
     {
         loadConfig();
+        playAudioCheckBox.Checked = Config.Instance.PlayAudio;
         currentHotKey = Config.Instance.HotKey;
         timer.Elapsed += Timer_Elapsed;
         _setOtherDisable(true);
@@ -166,8 +168,9 @@ public partial class Mykey : Form
         StatueLabel.Text = "运行";
         _setOtherDisable(true);
         ModifyHotkeyButton.Enabled = false;
+        audio.PlayStart();
     }
-
+    Audio audio = new();
     private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         if (currentConfig == null) return;
@@ -196,6 +199,8 @@ public partial class Mykey : Form
         StatueLabel.Text = "停止";
         _setOtherDisable(false);
         ModifyHotkeyButton.Enabled = true;
+        audio.PlayStop();
+
     }
 
     bool _alreadySetHotKey = false;
@@ -236,7 +241,7 @@ public partial class Mykey : Form
     private void HelpButton_Click(object sender, EventArgs e)
     {
         var version_check_string = $"";
-        if(Program.LatestVersion != "" && Program.LatestVersion != Program.Version)
+        if (Program.LatestVersion != "" && Program.LatestVersion != Program.Version)
         {
             version_check_string = $"【版本更新】：最新版本为{Program.LatestVersion}，可前往Github下载更新！\n";
         }
@@ -245,6 +250,7 @@ public partial class Mykey : Form
             "【按键列表】：输入要按的键，可以输入多个，用 | 分割，在运行时将依次按下。输入LM代表鼠标左键，RM代表鼠标右键。如果需要同时按下多个键，则用\\分割，如：shift\\w\\e指的是按下shift和w、e的组合键。修饰键支持shift、alt、ctrl。\n" +
             "【按键间隔】：以毫秒为单位。按键将尽最大努力按照指定时间进行按键，但如果间隔太小了，实际按键间隔将大于设定间隔。\n" +
             "【管理员权限】：某些应用可能需要管理员权限打开本程序才可生效。\n" +
+            "【音效】：在程序同目录放`start.mp3`、`start.wav`、`start.m4a`等音频文件，将自定义开始的提示音。在程序同目录放`stop.mp3`、`stop.wav`、`stop.m4a`等音频文件，将自定义结束的提示音。\n" +
             "【开源地址】：https://github.com/dicarne/Mykey", "说明");
     }
 
@@ -384,5 +390,29 @@ public partial class Mykey : Form
             UseShellExecute = true,
             FileName = "https://github.com/dicarne/Mykey"
         });
+    }
+
+    bool PlaySound(string filename)
+    {
+        if (File.Exists(filename))
+        {
+            Task.Run(() =>
+            {
+                var player = new SoundPlayer
+                {
+                    SoundLocation = filename
+                };
+                player.Load();
+                player.Play();
+            });
+            return true;
+        }
+        return false;
+    }
+
+    private void playAudioCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        Config.Instance.PlayAudio = playAudioCheckBox.Checked;
+        Config.Save();
     }
 }

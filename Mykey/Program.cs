@@ -96,7 +96,7 @@ namespace Mykey
                                 break;
                             }
                     }
-                    Debug.WriteLine(currentTask.Key);
+                    //Debug.WriteLine(currentTask.Key);
                     lock (this)
                     {
                         currentTask = null;

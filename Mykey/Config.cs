@@ -11,6 +11,7 @@ public class Config
 {
     public List<ConfigItem> Configs { get; set; } = new List<ConfigItem>();
     public int CurrentIndex { get; set; } = 0;
+    public bool PlayAudio { get; set; } = true;
     static Config instance = new Config();
     public static Config Instance => instance;
 
@@ -42,7 +43,7 @@ public class Config
         instance.Configs.Add(new ConfigItem()
         {
             ConfigName = "Example",
-            Interval = 1000,
+            Interval = 100,
             PressKey = "F10",
         });
     }
