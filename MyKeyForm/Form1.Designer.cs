@@ -246,7 +246,7 @@
             Margin = new Padding(4);
             MaximizeBox = false;
             Name = "Mykey";
-            Text = "MyKey";
+            Text = "自动按键";
             Load += Form1_Load;
             KeyDown += Mykey_KeyDown;
             ResumeLayout(false);
