@@ -67,7 +67,6 @@ public partial class Mykey : Form
                         {
                             StartKey();
                         }
-                        Debug.WriteLine("hotkey");
                         break;
                     default:
                         break;
@@ -154,11 +153,17 @@ public partial class Mykey : Form
     Timer timer = new Timer();
     ConfigItem? currentConfig;
     PressKey pressKey;
+
+    long _last_start = 0;
+    int _debounce_time = 200;
+
     void StartKey()
     {
+        if (DateTimeOffset.Now.ToUnixTimeMilliseconds() - _last_start < _debounce_time) return;
         if (started) return;
         if (currentConfig == null) return;
         if (!pressKey.IsReady) return;
+        _last_start = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         started = true;
         currentConfig.Reset();
         timer.Interval = currentConfig.Interval;
@@ -193,7 +198,9 @@ public partial class Mykey : Form
 
     void StopKey()
     {
+        if (DateTimeOffset.Now.ToUnixTimeMilliseconds() - _last_start < _debounce_time) return;
         if (!started) return;
+        _last_start = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         timer.Stop();
         started = false;
         StatueLabel.Text = "ֹͣ";
