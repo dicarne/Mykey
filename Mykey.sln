@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mykey", "Mykey\Mykey.csproj", "{280ECD35-854E-44CB-856C-901DE4786E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyKeyForm", "MyKeyForm\MyKeyForm.csproj", "{D3A484F5-812B-433F-BBED-A92760D523E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyKeyForm", "MyKeyForm\MyKeyForm.csproj", "{D3A484F5-812B-433F-BBED-A92760D523E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

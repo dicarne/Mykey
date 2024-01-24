@@ -45,12 +45,19 @@
             DeleteButton = new Button();
             GitHubButton = new Button();
             playAudioCheckBox = new CheckBox();
+            tabControl1 = new TabControl();
+            keyPage = new TabPage();
+            scriptPanel = new TabPage();
+            ScriptList = new CheckedListBox();
+            tabControl1.SuspendLayout();
+            keyPage.SuspendLayout();
+            scriptPanel.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 29);
+            label1.Location = new Point(24, 28);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(84, 20);
@@ -60,7 +67,7 @@
             // StatueLabel
             // 
             StatueLabel.AutoSize = true;
-            StatueLabel.Location = new Point(129, 29);
+            StatueLabel.Location = new Point(122, 28);
             StatueLabel.Margin = new Padding(4, 0, 4, 0);
             StatueLabel.Name = "StatueLabel";
             StatueLabel.Size = new Size(39, 20);
@@ -69,7 +76,7 @@
             // 
             // HelpButton
             // 
-            HelpButton.Location = new Point(32, 373);
+            HelpButton.Location = new Point(6, 314);
             HelpButton.Margin = new Padding(4);
             HelpButton.Name = "HelpButton";
             HelpButton.Size = new Size(39, 31);
@@ -81,7 +88,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(32, 66);
+            label2.Location = new Point(25, 65);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(90, 20);
@@ -91,7 +98,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(32, 133);
+            label3.Location = new Point(1, 51);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(84, 20);
@@ -101,7 +108,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(32, 166);
+            label4.Location = new Point(1, 84);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(94, 20);
@@ -111,29 +118,30 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(32, 100);
+            label5.Location = new Point(4, 12);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(84, 20);
             label5.TabIndex = 9;
             label5.Text = "方案名称：";
+            label5.Click += label5_Click;
             // 
             // Plans
             // 
             Plans.FormattingEnabled = true;
-            Plans.Location = new Point(32, 206);
+            Plans.Location = new Point(4, 117);
             Plans.Margin = new Padding(4);
             Plans.Name = "Plans";
-            Plans.Size = new Size(334, 136);
+            Plans.Size = new Size(334, 180);
             Plans.TabIndex = 11;
             Plans.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // ModifyHotkeyButton
             // 
-            ModifyHotkeyButton.Location = new Point(129, 64);
+            ModifyHotkeyButton.Location = new Point(122, 63);
             ModifyHotkeyButton.Margin = new Padding(4);
             ModifyHotkeyButton.Name = "ModifyHotkeyButton";
-            ModifyHotkeyButton.Size = new Size(238, 27);
+            ModifyHotkeyButton.Size = new Size(249, 27);
             ModifyHotkeyButton.TabIndex = 12;
             ModifyHotkeyButton.Text = "修改";
             ModifyHotkeyButton.UseVisualStyleBackColor = true;
@@ -142,7 +150,7 @@
             // AdminTest
             // 
             AdminTest.AutoSize = true;
-            AdminTest.Location = new Point(31, 11);
+            AdminTest.Location = new Point(24, 10);
             AdminTest.Margin = new Padding(4, 0, 4, 0);
             AdminTest.Name = "AdminTest";
             AdminTest.Size = new Size(0, 20);
@@ -150,16 +158,16 @@
             // 
             // NameTextBox
             // 
-            NameTextBox.Location = new Point(129, 96);
+            NameTextBox.Location = new Point(101, 8);
             NameTextBox.Margin = new Padding(3, 4, 3, 4);
             NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(238, 27);
+            NameTextBox.Size = new Size(235, 27);
             NameTextBox.TabIndex = 14;
             NameTextBox.TextChanged += NameTextBox_TextChanged;
             // 
             // PressKeyTextBox
             // 
-            PressKeyTextBox.Location = new Point(129, 129);
+            PressKeyTextBox.Location = new Point(98, 47);
             PressKeyTextBox.Margin = new Padding(3, 4, 3, 4);
             PressKeyTextBox.Name = "PressKeyTextBox";
             PressKeyTextBox.Size = new Size(238, 27);
@@ -168,7 +176,7 @@
             // 
             // IntervalTextBox
             // 
-            IntervalTextBox.Location = new Point(129, 164);
+            IntervalTextBox.Location = new Point(98, 82);
             IntervalTextBox.Margin = new Padding(3, 4, 3, 4);
             IntervalTextBox.Name = "IntervalTextBox";
             IntervalTextBox.Size = new Size(238, 27);
@@ -177,7 +185,7 @@
             // 
             // CreateButton
             // 
-            CreateButton.Location = new Point(167, 374);
+            CreateButton.Location = new Point(141, 315);
             CreateButton.Margin = new Padding(3, 4, 3, 4);
             CreateButton.Name = "CreateButton";
             CreateButton.Size = new Size(94, 29);
@@ -188,7 +196,7 @@
             // 
             // DeleteButton
             // 
-            DeleteButton.Location = new Point(266, 374);
+            DeleteButton.Location = new Point(240, 315);
             DeleteButton.Margin = new Padding(3, 4, 3, 4);
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(94, 29);
@@ -199,7 +207,7 @@
             // 
             // GitHubButton
             // 
-            GitHubButton.Location = new Point(77, 374);
+            GitHubButton.Location = new Point(51, 315);
             GitHubButton.Margin = new Padding(4);
             GitHubButton.Name = "GitHubButton";
             GitHubButton.Size = new Size(84, 29);
@@ -211,7 +219,7 @@
             // playAudioCheckBox
             // 
             playAudioCheckBox.AutoSize = true;
-            playAudioCheckBox.Location = new Point(291, 25);
+            playAudioCheckBox.Location = new Point(295, 24);
             playAudioCheckBox.Name = "playAudioCheckBox";
             playAudioCheckBox.Size = new Size(76, 24);
             playAudioCheckBox.TabIndex = 20;
@@ -219,26 +227,67 @@
             playAudioCheckBox.UseVisualStyleBackColor = true;
             playAudioCheckBox.CheckedChanged += playAudioCheckBox_CheckedChanged;
             // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(keyPage);
+            tabControl1.Controls.Add(scriptPanel);
+            tabControl1.Location = new Point(24, 97);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(353, 394);
+            tabControl1.TabIndex = 21;
+            // 
+            // keyPage
+            // 
+            keyPage.Controls.Add(label3);
+            keyPage.Controls.Add(HelpButton);
+            keyPage.Controls.Add(NameTextBox);
+            keyPage.Controls.Add(GitHubButton);
+            keyPage.Controls.Add(label4);
+            keyPage.Controls.Add(DeleteButton);
+            keyPage.Controls.Add(label5);
+            keyPage.Controls.Add(Plans);
+            keyPage.Controls.Add(CreateButton);
+            keyPage.Controls.Add(PressKeyTextBox);
+            keyPage.Controls.Add(IntervalTextBox);
+            keyPage.Location = new Point(4, 29);
+            keyPage.Name = "keyPage";
+            keyPage.Padding = new Padding(3);
+            keyPage.Size = new Size(345, 355);
+            keyPage.TabIndex = 0;
+            keyPage.Text = "按键";
+            keyPage.UseVisualStyleBackColor = true;
+            // 
+            // scriptPanel
+            // 
+            scriptPanel.Controls.Add(ScriptList);
+            scriptPanel.Location = new Point(4, 29);
+            scriptPanel.Name = "scriptPanel";
+            scriptPanel.Padding = new Padding(3);
+            scriptPanel.Size = new Size(345, 361);
+            scriptPanel.TabIndex = 1;
+            scriptPanel.Text = "脚本";
+            scriptPanel.UseVisualStyleBackColor = true;
+            // 
+            // ScriptList
+            // 
+            ScriptList.FormattingEnabled = true;
+            ScriptList.Location = new Point(0, 2);
+            ScriptList.Name = "ScriptList";
+            ScriptList.Size = new Size(345, 356);
+            ScriptList.TabIndex = 0;
+            ScriptList.SelectedIndexChanged += ScriptList_SelectedIndexChanged;
+            // 
             // Mykey
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(405, 422);
+            ClientSize = new Size(397, 497);
+            Controls.Add(tabControl1);
             Controls.Add(playAudioCheckBox);
-            Controls.Add(GitHubButton);
-            Controls.Add(DeleteButton);
-            Controls.Add(CreateButton);
-            Controls.Add(IntervalTextBox);
-            Controls.Add(PressKeyTextBox);
-            Controls.Add(NameTextBox);
             Controls.Add(AdminTest);
             Controls.Add(ModifyHotkeyButton);
-            Controls.Add(Plans);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(HelpButton);
             Controls.Add(StatueLabel);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -249,6 +298,10 @@
             Text = "自动按键";
             Load += Form1_Load;
             KeyDown += Mykey_KeyDown;
+            tabControl1.ResumeLayout(false);
+            keyPage.ResumeLayout(false);
+            keyPage.PerformLayout();
+            scriptPanel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -272,5 +325,9 @@
         private Button DeleteButton;
         private Button GitHubButton;
         private CheckBox playAudioCheckBox;
+        private TabControl tabControl1;
+        private TabPage keyPage;
+        private TabPage scriptPanel;
+        private CheckedListBox ScriptList;
     }
 }

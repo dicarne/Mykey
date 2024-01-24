@@ -55,6 +55,7 @@ namespace Mykey
                 lock (this)
                 {
                     task = currentTask;
+                    currentTask = null;
                 }
                 if (task != null && completeDriverLoad)
                 {
@@ -63,16 +64,42 @@ namespace Mykey
                         case PressTask.PType.Key:
                             {
                                 var keys = task.Key.Split('\\');
-                                if (keys.Length == 1) { ts.KeyPressChar(task.Key); }
-                                else
+                                
                                 {
                                     for (int i = 0; i < keys.Length; i++)
                                     {
-                                        ts.KeyDownChar(keys[i]);
+                                        var it = keys[i];
+                                        if (it.Length > 1)
+                                        {
+                                            if (it.StartsWith("^"))
+                                            {
+                                                continue;
+                                            }
+                                            if (it.EndsWith("^"))
+                                            {
+                                                it = it.Substring(0, it.Length - 1);
+                                            }
+                                        }
+                                        ts.KeyDownChar(it);
+                                        Debug.WriteLine($"down: {it}");
                                     }
                                     for (int i = keys.Length - 1; i >= 0; i--)
                                     {
-                                        ts.KeyPressChar(keys[i]);
+                                        var it = keys[i];
+                                        if (it.Length > 1)
+                                        {
+                                            if (it.StartsWith("^"))
+                                            {
+                                                it = it.Substring(1);
+                                            }
+                                            if (it.EndsWith("^"))
+                                            {
+                                                continue;
+                                            }
+                                        }
+                                        ts.KeyPressChar(it);
+                                        //ts.KeyUpChar(it);
+                                        Debug.WriteLine($"up: {it}");
                                     }
                                 }
                             }
@@ -96,21 +123,26 @@ namespace Mykey
                                 break;
                             }
                     }
-                    //Debug.WriteLine(currentTask.Key);
-                    lock (this)
-                    {
-                        currentTask = null;
-                    }
 
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(0);
             }
         }
         void AddNewTask(PressTask task)
         {
             lock (this)
             {
-                currentTask = task;
+                if (currentTask == null)
+                {
+                    currentTask = task;
+                }
+                else
+                {
+                    if (task.KType == PressTask.PType.Key && currentTask.KType == PressTask.PType.Key)
+                    {
+                        currentTask.Key += "\\" + task.Key;
+                    }
+                }
             }
         }
 

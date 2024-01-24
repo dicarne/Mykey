@@ -1,5 +1,6 @@
 namespace MyKeyForm;
 using global::Mykey;
+using NAudio.Midi;
 using System.Diagnostics;
 using System.Media;
 using System.Timers;
@@ -13,6 +14,7 @@ public partial class Mykey : Form
     {
         InitializeComponent();
     }
+    ScriptManager scriptManager = new();
     private void Form1_Load(object sender, EventArgs e)
     {
         loadConfig();
@@ -24,6 +26,7 @@ public partial class Mykey : Form
         pressKey = new PressKey();
         pressKey.OnReady += PressKey_OnReady;
         pressKey.Start();
+        PrepareScript();
     }
 
     private void PressKey_OnReady()
@@ -149,6 +152,14 @@ public partial class Mykey : Form
         CreateButton.Enabled = true;
     }
 
+    void PrepareScript()
+    {
+        foreach (var item in scriptManager.Scripts)
+        {
+            ScriptList.Items.Add(item.Name + " （本地）");
+        }
+    }
+
     bool started = false;
     Timer timer = new Timer();
     ConfigItem? currentConfig;
@@ -161,14 +172,37 @@ public partial class Mykey : Form
     {
         if (DateTimeOffset.Now.ToUnixTimeMilliseconds() - _last_start < _debounce_time) return;
         if (started) return;
-        if (currentConfig == null) return;
+
         if (!pressKey.IsReady) return;
+
+        // 按键模式
+        if (tabControl1.SelectedIndex == 0)
+        {
+            if (currentConfig == null) return;
+            currentConfig.Reset();
+        }
+        if (tabControl1.SelectedIndex == 1)
+        {
+            if (scriptManager.CurrentScript == null) return;
+        }
+
         _last_start = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         started = true;
-        currentConfig.Reset();
-        timer.Interval = currentConfig.Interval;
 
-        timer.Start();
+        if (tabControl1.SelectedIndex == 0 && currentConfig != null)
+        {
+            timer.Interval = currentConfig.Interval;
+
+            timer.Start();
+        }
+
+        // 脚本模式
+        if (tabControl1.SelectedIndex == 1 && scriptManager.CurrentScript != null)
+        {
+            PlayScript();
+        }
+
+
 
         StatueLabel.Text = "运行";
         _setOtherDisable(true);
@@ -196,12 +230,23 @@ public partial class Mykey : Form
         Thread.Sleep(1);
     }
 
-    void StopKey()
+    void StopKey(bool ignoreDebounce = false)
     {
-        if (DateTimeOffset.Now.ToUnixTimeMilliseconds() - _last_start < _debounce_time) return;
+        if (!ignoreDebounce)
+        {
+            if (DateTimeOffset.Now.ToUnixTimeMilliseconds() - _last_start < _debounce_time) return;
+        }
+
         if (!started) return;
         _last_start = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-        timer.Stop();
+        if (tabControl1.SelectedIndex == 0)
+        {
+            timer.Stop();
+        }
+        if (tabControl1.SelectedIndex == 1)
+        {
+            StopScript();
+        }
         started = false;
         StatueLabel.Text = "停止";
         _setOtherDisable(false);
@@ -293,6 +338,7 @@ public partial class Mykey : Form
         Plans.Enabled = !disable;
         CreateButton.Enabled = !disable;
         DeleteButton.Enabled = !disable;
+        tabControl1.Enabled = !disable;
     }
     private void ModifyHotkeyButton_Click(object sender, EventArgs e)
     {
@@ -399,27 +445,63 @@ public partial class Mykey : Form
         });
     }
 
-    bool PlaySound(string filename)
-    {
-        if (File.Exists(filename))
-        {
-            Task.Run(() =>
-            {
-                var player = new SoundPlayer
-                {
-                    SoundLocation = filename
-                };
-                player.Load();
-                player.Play();
-            });
-            return true;
-        }
-        return false;
-    }
 
     private void playAudioCheckBox_CheckedChanged(object sender, EventArgs e)
     {
         Config.Instance.PlayAudio = playAudioCheckBox.Checked;
         Config.Save();
+    }
+
+    private void label5_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void ScriptList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ScriptList.SelectedIndex == -1)
+        {
+            scriptManager.CurrentScript = null;
+            return;
+        }
+        scriptManager.CurrentScript = scriptManager.Scripts[ScriptList.SelectedIndex];
+        ScriptList.SetItemChecked(ScriptList.SelectedIndex, true);
+        for (int i = 0; i < ScriptList.Items.Count; i++)
+        {
+            if (i != ScriptList.SelectedIndex)
+            {
+                ScriptList.SetItemChecked(i, false);
+            }
+        }
+    }
+
+    void PlayScript()
+    {
+        var script = scriptManager.CurrentScript;
+        if (script == null) return;
+
+        scriptManager.Start();
+        script.Content = null;
+        if (script.FilePath != null && script.Content == null)
+        {
+            script.Content = File.ReadAllText(script.FilePath);
+        }
+
+        if (script.Content != null)
+        {
+            Task.Run(() =>
+            {
+                scriptManager.ExcuteCurrent(pressKey);
+                StatueLabel.Invoke(() =>
+                {
+                    StopKey(true);
+                });
+            });
+        }
+    }
+
+    void StopScript()
+    {
+        scriptManager.Stop();
     }
 }
