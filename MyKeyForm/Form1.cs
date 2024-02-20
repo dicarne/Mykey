@@ -3,6 +3,7 @@ using global::Mykey;
 using NAudio.Midi;
 using System.Diagnostics;
 using System.Media;
+using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Forms;
 using Keys = global::Mykey.Keys;
@@ -224,6 +225,29 @@ public partial class Mykey : Form
                 pressKey.RightClick();
                 break;
             default:
+                string patternLM = @"LM\(([0-9]+),([0-9]+)\)";
+                Match match = Regex.Match(targetKey, patternLM);
+                if (match.Success)
+                {
+                    string num1 = match.Groups[1].Value;
+                    string num2 = match.Groups[2].Value;
+                    int v1 = int.Parse(num1);
+                    int v2 = int.Parse(num2);
+                    pressKey.LeftClick(new Point(v1, v2));
+                    break;
+                }
+
+                string patternRM = @"LM\\([0-9]+,[0-9+]+\\)";
+                match = Regex.Match(targetKey, patternRM);
+                if (match.Success)
+                {
+                    string num1 = match.Groups[1].Value;
+                    string num2 = match.Groups[2].Value;
+                    int v1 = int.Parse(num1);
+                    int v2 = int.Parse(num2);
+                    pressKey.RightClick(new Point(v1, v2));
+                    break;
+                }
                 pressKey.PressKeyChar(targetKey);
                 break;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using TSPlugLib;
@@ -24,6 +25,7 @@ namespace Mykey
             }
             public PType KType;
             public string Key;
+            public Point? MoveTo;
         }
         PressTask? currentTask = null;
         bool completeDriverLoad = false;
@@ -81,7 +83,6 @@ namespace Mykey
                                             }
                                         }
                                         ts.KeyDownChar(it);
-                                        Debug.WriteLine($"down: {it}");
                                     }
                                     for (int i = keys.Length - 1; i >= 0; i--)
                                     {
@@ -99,7 +100,6 @@ namespace Mykey
                                         }
                                         ts.KeyPressChar(it);
                                         //ts.KeyUpChar(it);
-                                        Debug.WriteLine($"up: {it}");
                                     }
                                 }
                             }
@@ -107,6 +107,10 @@ namespace Mykey
                         case PressTask.PType.LM:
                             {
                                 ts.SetSimMode(0);
+                                if(task.MoveTo != null)
+                                {
+                                    ts.MoveTo(task.MoveTo.Value.X, task.MoveTo.Value.Y);
+                                }
                                 ts.LeftClick();
                                 ts.SetSimMode(1);
                             }
@@ -114,6 +118,10 @@ namespace Mykey
                         case PressTask.PType.RM:
                             {
                                 ts.SetSimMode(0);
+                                if (task.MoveTo != null)
+                                {
+                                    ts.MoveTo(task.MoveTo.Value.X, task.MoveTo.Value.Y);
+                                }
                                 ts.RightClick();
                                 ts.SetSimMode(1);
                                 break;
@@ -125,7 +133,7 @@ namespace Mykey
                     }
 
                 }
-                Thread.Sleep(0);
+                Thread.Sleep(1);
             }
         }
         void AddNewTask(PressTask task)
@@ -159,14 +167,15 @@ namespace Mykey
             AddNewTask(new PressTask { KType = PressTask.PType.Key, Key = oneKey });
         }
 
-        public void LeftClick()
+        public void LeftClick(Point? moveto = null)
         {
             // 模拟鼠标的时候要将模拟模式设为0，否则会出错。
-            AddNewTask(new PressTask { KType = PressTask.PType.LM });
+            AddNewTask(new PressTask { KType = PressTask.PType.LM, MoveTo=moveto });
         }
-        public void RightClick()
+
+        public void RightClick(Point? moveto = null)
         {
-            AddNewTask(new PressTask { KType = PressTask.PType.RM });
+            AddNewTask(new PressTask { KType = PressTask.PType.RM, MoveTo = moveto });
         }
 
         public bool IsUAC()

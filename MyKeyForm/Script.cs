@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyKeyForm;
@@ -141,6 +142,29 @@ class ScriptManager
                         }
                     default:
                         {
+                            string patternLM = @"LM\(([0-9]+),([0-9]+)\)";
+                            Match match = Regex.Match(l, patternLM);
+                            if (match.Success)
+                            {
+                                string num1 = match.Groups[1].Value;
+                                string num2 = match.Groups[2].Value;
+                                int v1 = int.Parse(num1);
+                                int v2 = int.Parse(num2);
+                                pressKey.LeftClick(new Point(v1, v2));
+                                break;
+                            }
+
+                            string patternRM = @"LM\\([0-9]+,[0-9+]+\\)";
+                            match = Regex.Match(l, patternRM);
+                            if (match.Success)
+                            {
+                                string num1 = match.Groups[1].Value;
+                                string num2 = match.Groups[2].Value;
+                                int v1 = int.Parse(num1);
+                                int v2 = int.Parse(num2);
+                                pressKey.RightClick(new Point(v1, v2));
+                                break;
+                            }
                             pressKey.PressKeyChar(l);
                         }
                         break;
