@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mykey", "Mykey\Mykey.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyKeyForm", "MyKeyForm\MyKeyForm.csproj", "{D3A484F5-812B-433F-BBED-A92760D523E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{59D122B9-8ADA-469F-B613-49203DD0DCCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{D3A484F5-812B-433F-BBED-A92760D523E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3A484F5-812B-433F-BBED-A92760D523E6}.Release|x86.ActiveCfg = Release|Any CPU
 		{D3A484F5-812B-433F-BBED-A92760D523E6}.Release|x86.Build.0 = Release|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Debug|x86.Build.0 = Debug|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Release|x86.ActiveCfg = Release|Any CPU
+		{59D122B9-8ADA-469F-B613-49203DD0DCCA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

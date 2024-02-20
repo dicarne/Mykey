@@ -49,9 +49,15 @@
             keyPage = new TabPage();
             scriptPanel = new TabPage();
             ScriptList = new CheckedListBox();
+            apiPage = new TabPage();
+            label7 = new Label();
+            apiStatueText = new Label();
+            apiServerButton = new Button();
+            label6 = new Label();
             tabControl1.SuspendLayout();
             keyPage.SuspendLayout();
             scriptPanel.SuspendLayout();
+            apiPage.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -231,6 +237,7 @@
             // 
             tabControl1.Controls.Add(keyPage);
             tabControl1.Controls.Add(scriptPanel);
+            tabControl1.Controls.Add(apiPage);
             tabControl1.Location = new Point(24, 97);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -253,7 +260,7 @@
             keyPage.Location = new Point(4, 29);
             keyPage.Name = "keyPage";
             keyPage.Padding = new Padding(3);
-            keyPage.Size = new Size(345, 355);
+            keyPage.Size = new Size(345, 361);
             keyPage.TabIndex = 0;
             keyPage.Text = "按键";
             keyPage.UseVisualStyleBackColor = true;
@@ -277,6 +284,56 @@
             ScriptList.Size = new Size(345, 356);
             ScriptList.TabIndex = 0;
             ScriptList.SelectedIndexChanged += ScriptList_SelectedIndexChanged;
+            // 
+            // apiPage
+            // 
+            apiPage.Controls.Add(label7);
+            apiPage.Controls.Add(apiStatueText);
+            apiPage.Controls.Add(apiServerButton);
+            apiPage.Controls.Add(label6);
+            apiPage.Location = new Point(4, 29);
+            apiPage.Name = "apiPage";
+            apiPage.Size = new Size(345, 361);
+            apiPage.TabIndex = 2;
+            apiPage.Text = "API";
+            apiPage.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(16, 92);
+            label7.Name = "label7";
+            label7.Size = new Size(129, 20);
+            label7.TabIndex = 3;
+            label7.Text = "服务端口：15692";
+            // 
+            // apiStatueText
+            // 
+            apiStatueText.AutoSize = true;
+            apiStatueText.Location = new Point(119, 55);
+            apiStatueText.Name = "apiStatueText";
+            apiStatueText.Size = new Size(69, 20);
+            apiStatueText.TabIndex = 2;
+            apiStatueText.Text = "未启动。";
+            // 
+            // apiServerButton
+            // 
+            apiServerButton.Location = new Point(13, 52);
+            apiServerButton.Name = "apiServerButton";
+            apiServerButton.Size = new Size(94, 29);
+            apiServerButton.TabIndex = 1;
+            apiServerButton.Text = "开启";
+            apiServerButton.UseVisualStyleBackColor = true;
+            apiServerButton.Click += apiServerButton_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(13, 18);
+            label6.Name = "label6";
+            label6.Size = new Size(277, 20);
+            label6.TabIndex = 0;
+            label6.Text = "API 服务用于提供给其他应用程序使用。";
             // 
             // Mykey
             // 
@@ -302,6 +359,8 @@
             keyPage.ResumeLayout(false);
             keyPage.PerformLayout();
             scriptPanel.ResumeLayout(false);
+            apiPage.ResumeLayout(false);
+            apiPage.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -329,5 +388,10 @@
         private TabPage keyPage;
         private TabPage scriptPanel;
         private CheckedListBox ScriptList;
+        private TabPage apiPage;
+        private Button apiServerButton;
+        private Label label6;
+        private Label apiStatueText;
+        private Label label7;
     }
 }

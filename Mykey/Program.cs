@@ -16,6 +16,7 @@ namespace Mykey
 
     public class PressKey
     {
+        public static PressKey Instance = new();
         ITSPlugInterFace ts;
         class PressTask
         {

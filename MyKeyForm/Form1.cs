@@ -8,12 +8,13 @@ using System.Timers;
 using System.Windows.Forms;
 using Keys = global::Mykey.Keys;
 using Timer = System.Timers.Timer;
-
+using API;
 public partial class Mykey : Form
 {
     public Mykey()
     {
         InitializeComponent();
+
     }
     ScriptManager scriptManager = new();
     private void Form1_Load(object sender, EventArgs e)
@@ -24,7 +25,7 @@ public partial class Mykey : Form
         timer.Elapsed += Timer_Elapsed;
         _setOtherDisable(true);
         StatueLabel.Text = "加载驱动中";
-        pressKey = new PressKey();
+        pressKey = PressKey.Instance;
         pressKey.OnReady += PressKey_OnReady;
         pressKey.Start();
         PrepareScript();
@@ -527,5 +528,12 @@ public partial class Mykey : Form
     void StopScript()
     {
         scriptManager.Stop();
+    }
+
+    private void apiServerButton_Click(object sender, EventArgs e)
+    {
+        API.Program.Start();
+        apiServerButton.Enabled = false;
+        apiStatueText.Text = "运行中";
     }
 }
