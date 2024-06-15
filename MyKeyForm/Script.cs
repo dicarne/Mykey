@@ -1,10 +1,5 @@
 ﻿using Mykey;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MyKeyForm;
 
@@ -41,8 +36,8 @@ class ScriptManager
         }
     }
     bool _script_stop = false;
-    char[] _time_allow = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', '.' };
-    long[] _time_base = new long[] { 1, 60, 24 * 60 };
+    char[] _time_allow = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', '.'];
+    long[] _time_base = [1, 60, 24 * 60];
     public void RunTxTScript(PressKey pressKey)
     {
         var script = CurrentScript;
@@ -154,7 +149,7 @@ class ScriptManager
                                 break;
                             }
 
-                            string patternRM = @"LM\\([0-9]+,[0-9+]+\\)";
+                            string patternRM = @"RM\(([0-9]+),([0-9]+)\)";
                             match = Regex.Match(l, patternRM);
                             if (match.Success)
                             {

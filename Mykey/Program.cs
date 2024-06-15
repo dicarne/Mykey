@@ -67,7 +67,7 @@ namespace Mykey
                         case PressTask.PType.Key:
                             {
                                 var keys = task.Key.Split('\\');
-                                
+
                                 {
                                     for (int i = 0; i < keys.Length; i++)
                                     {
@@ -108,7 +108,7 @@ namespace Mykey
                         case PressTask.PType.LM:
                             {
                                 ts.SetSimMode(0);
-                                if(task.MoveTo != null)
+                                if (task.MoveTo != null)
                                 {
                                     ts.MoveTo(task.MoveTo.Value.X, task.MoveTo.Value.Y);
                                 }
@@ -171,7 +171,7 @@ namespace Mykey
         public void LeftClick(Point? moveto = null)
         {
             // 模拟鼠标的时候要将模拟模式设为0，否则会出错。
-            AddNewTask(new PressTask { KType = PressTask.PType.LM, MoveTo=moveto });
+            AddNewTask(new PressTask { KType = PressTask.PType.LM, MoveTo = moveto });
         }
 
         public void RightClick(Point? moveto = null)

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace MyKeyForm;
 internal static class Program
 {
-    public static string Version = "v0.5.1";
+    public static string Version = "v0.5.2";
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
